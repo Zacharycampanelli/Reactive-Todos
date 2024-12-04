@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brightBlue: 220, 98%, 61%;
+  --gradientStart: 192, 100%, 67%;
+  --gradientEnd: 280, 87%, 65%;
+}
+.light {
+  --veryLightGray: 0, 0%, 98%;
+  --veryLightGrayishBlue: 236, 33%, 92%;
+  --lightGrayishBlue: 233, 11%, 84%;
+  --darkGrayishBlue: 236, 9%, 61%;
+  --veryDarkGrayishBlue: 235, 19%, 35%;
+}
+
+.dark {
+  --veryDarkBlue: 235, 21%, 11%;
+  --veryDarkDesaturatedBlue: 235, 24%, 19%;
+  --lightGrayishBlue: 234, 39%, 85%;
+  --lightGrayishBlueHover: 236, 33%, 92%;
+  --darkGrayishBlue: 234, 11%, 52%;
+  --veryDarkGrayishBlue: 233, 14%, 35%;
+  --veryDarkGrayishBlueHover: 237, 14%, 26%;
+}
