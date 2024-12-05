@@ -3,24 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --brightBlue: 220, 98%, 61%;
-  --gradientStart: 192, 100%, 67%;
-  --gradientEnd: 280, 87%, 65%;
+  --current-page: 58, 123, 253;
+  --gradient-start: 87, 221, 255;
+  --gradient-end: 192, 88, 243;
 }
 .light {
-  --veryLightGray: 0, 0%, 98%;
-  --veryLightGrayishBlue: 236, 33%, 92%;
-  --lightGrayishBlue: 233, 11%, 84%;
-  --darkGrayishBlue: 236, 9%, 61%;
-  --veryDarkGrayishBlue: 235, 19%, 35%;
+  --background: 249, 249, 249;
+  --task-box: 255, 255, 255;
+  --active-task: 72, 75, 106;
+  --finished-task: 209, 210, 218;
+  --primary-text: 146, 147, 164;
+  --divider-circle: 227, 228, 241;
 }
 
 .dark {
-  --veryDarkBlue: 235, 21%, 11%;
-  --veryDarkDesaturatedBlue: 235, 24%, 19%;
-  --lightGrayishBlue: 234, 39%, 85%;
-  --lightGrayishBlueHover: 236, 33%, 92%;
-  --darkGrayishBlue: 234, 11%, 52%;
-  --veryDarkGrayishBlue: 233, 14%, 35%;
-  --veryDarkGrayishBlueHover: 237, 14%, 26%;
+  --background: 22, 23, 33;
+  --task-box: 36, 38, 60;
+  --active-task: 201, 204, 231;
+  --finished-task: 76, 79, 101;
+  --primary-text: 119, 121, 146;
+  --divider-circle: 57, 57, 75;
+  --hover: 227, 228, 241;
 }
