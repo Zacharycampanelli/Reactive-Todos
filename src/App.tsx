@@ -1,17 +1,20 @@
-import { useState } from "react"
+import { useState } from 'react';
 
-import './index.css'
+import './index.css';
+import { ThemeProvider } from './context/ThemeContext';
 function App() {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('light');
 
   return (
-    <div className={`${theme} p-6`}>
-      <div className="bg-background w-full">
-    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>change</button>
+    <ThemeProvider>
+    <div className={`${theme} size-full min-h-screen	`}>
+      <div className="bg-background ">
+
+        <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>change</button>
       </div>
-     
     </div>
-  )
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;

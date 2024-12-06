@@ -18,8 +18,15 @@ export default {
         currentPage: "rgb(var(--current-page))",
         gradientStart: "rgb(var(--gradient-start))",
         gradientEnd: "rgb(var(--gradient-end))",
+      },
+      backgroundImage: {
+        'mobileLight': "url('./src/assets/images/bg-mobile-light.jpg')", 
+        'desktopLight': "url('./src/assets/images/bg-desktop-light.jpg')",
+        'mobileDark': "url('./src/assets/images/bg-mobile-dark.jpg')",
+        'desktopDark': "url('./src/assets/images/bg-desktop-dark.jpg')",
+        
       }
-    },
+    },    
   },
   plugins: [],
 }
