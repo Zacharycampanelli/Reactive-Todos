@@ -20,11 +20,10 @@ export default {
         gradientEnd: "rgb(var(--gradient-end))",
       },
       backgroundImage: {
-        'mobileLight': "url('./src/assets/images/bg-mobile-light.jpg')", 
-        'desktopLight': "url('./src/assets/images/bg-desktop-light.jpg')",
-        'mobileDark': "url('./src/assets/images/bg-mobile-dark.jpg')",
-        'desktopDark': "url('./src/assets/images/bg-desktop-dark.jpg')",
-        
+        'mobile_light': "url('./src/assets/images/bg-mobile-light.jpg')", 
+        'desktop_light': "url('./src/assets/images/bg-desktop-light.jpg')",
+        'mobile_dark': "url('./src/assets/images/bg-mobile-dark.jpg')",
+        'desktop_dark': "url('./src/assets/images/bg-desktop-dark.jpg')",
       }
     },    
   },

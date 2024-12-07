@@ -1,18 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import './index.css';
 import { ThemeProvider } from './context/ThemeContext';
+import Jumbotron from './assets/components/Jumbotron';
+import Toggle from './assets/components/Toggle';
 function App() {
-  const [theme, setTheme] = useState('light');
-
   return (
     <ThemeProvider>
-    <div className={`${theme} size-full min-h-screen	`}>
-      <div className="bg-background ">
-
-        <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>change</button>
+      <div className={` size-full min-h-screen	`}>
+        <Jumbotron />
       </div>
-    </div>
+      <Toggle />
     </ThemeProvider>
   );
 }
