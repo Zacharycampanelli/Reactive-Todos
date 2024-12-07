@@ -19,6 +19,9 @@ export default {
         gradientStart: "rgb(var(--gradient-start))",
         gradientEnd: "rgb(var(--gradient-end))",
       },
+      fontFamily: {
+        'josefin': ['Josefin Sans', 'sans-serif'],
+      },
       backgroundImage: {
         'mobile_light': "url('./src/assets/images/bg-mobile-light.jpg')", 
         'desktop_light': "url('./src/assets/images/bg-desktop-light.jpg')",

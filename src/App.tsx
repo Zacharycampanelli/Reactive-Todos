@@ -9,8 +9,8 @@ function App() {
     <ThemeProvider>
       <div className={` size-full min-h-screen	`}>
         <Jumbotron />
-      </div>
       <Toggle />
+      </div>
     </ThemeProvider>
   );
 }
