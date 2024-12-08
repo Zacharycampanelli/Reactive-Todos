@@ -11,7 +11,7 @@ function App() {
       <Jumbotron />
       <div className={`size-full min-h-screen	px-6 -mt-[15vh]`}>
         <ToDoContainer />
-        <Toggle />
+      
       </div>
     </ThemeProvider>
   );
