@@ -18,10 +18,8 @@ const Jumbotron = () => {
       : desktopDark;
 
   return (
-    <div style={{ backgroundImage: `url(${image})` }} className={`m-0 p-0 w-full h-[20vh] bg-no-repeat bg-cover`}>
-      <h1 className="font-josefin">TO DO</h1>
-    </div>
-  );
+    <div style={{ backgroundImage: `url(${image})` }} className={`relative h-[20vh] bg-no-repeat bg-cover bg-center -z-10`}></div>
+  );x
 };
 
 export default Jumbotron;
