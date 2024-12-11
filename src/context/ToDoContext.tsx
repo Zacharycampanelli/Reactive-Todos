@@ -1,19 +1,56 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
-const ToDoContext = createContext({ active: [], completed: [], toggleToDo: () => {} });
+type Todo = {
+    title: string;
+    isDone: boolean;
+}
 
-const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+type TodoContextType = {
+    Todos: Array<Todo>;
+    toggleTodo: (TodoTitle: string) => void;
+    addTodo: (Todo: Todo) => void;
+    removeTodo: (TodoTitle: string) => void;
+    finishedTodos: Array<Todo>;
+    unfinishedTodos: Array<Todo>;
+}
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+const TodoProvider = ({ children }: { children: ReactNode}) => {
+    // const [active, setActive] = useState<Array<Todo>>([]);
+    // const [completed, setCompleted] = useState<Array<Todo>>([]);
+    const [Todos, setTodos] = useState<Array<Todo>>([]);
+
+    const toggleTodo = (TodoTitle: string) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((Todo) =>
+                Todo.title === TodoTitle ? { ...Todo, isDone: !Todo.isDone } : Todo
+            )
+        );
+    };
+
+    const addTodo = (Todo: Todo) => {
+        setTodos((prevTodos) => [...prevTodos, Todo]);
+    }
+
+    const removeTodo = (TodoTitle: string) => {
+        setTodos((prevTodos) => prevTodos.filter((Todo) => Todo.title !== TodoTitle));
+    }
+    const finishedTodos = Todos.filter((Todo) => Todo.isDone);
+    const unfinishedTodos = Todos.filter((Todo) => !Todo.isDone);
+
+
+    return <TodoContext.Provider value={{ Todos, toggleTodo, addTodo, removeTodo, finishedTodos, unfinishedTodos }}>{children}</TodoContext.Provider>;
 };
 
-const useTheme = () => {
-  return useContext(ThemeContext);
+
+const useTodo = (): TodoContextType => {
+    const context = useContext(TodoContext);
+    if (!context) {
+        throw new Error('useTodo must be used within a TodoProvider');
+    }
+    return context;
+    
 };
 
-export { ThemeProvider, useTheme };
+export { TodoProvider, useTodo };
