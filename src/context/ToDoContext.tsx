@@ -17,8 +17,8 @@ type TodoContextType = {
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 const TodoProvider = ({ children }: { children: ReactNode}) => {
-    // const [active, setActive] = useState<Array<Todo>>([]);
-    // const [completed, setCompleted] = useState<Array<Todo>>([]);
+00
+
     const [Todos, setTodos] = useState<Array<Todo>>([]);
 
     const toggleTodo = (TodoTitle: string) => {
@@ -50,7 +50,7 @@ const useTodo = (): TodoContextType => {
         throw new Error('useTodo must be used within a TodoProvider');
     }
     return context;
-    
+
 };
 
 export { TodoProvider, useTodo };
