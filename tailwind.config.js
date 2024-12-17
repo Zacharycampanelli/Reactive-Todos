@@ -18,6 +18,7 @@ export default {
         currentPage: "rgb(var(--current-page))",
         gradientStart: "rgb(var(--gradient-start))",
         gradientEnd: "rgb(var(--gradient-end))",
+        circle: "rgb(var(--circle))",
       },
       fontFamily: {
         'josefin': ['Josefin Sans', 'sans-serif'],

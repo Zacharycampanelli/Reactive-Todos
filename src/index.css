@@ -14,6 +14,7 @@
   --finished-task: 209, 210, 218;
   --primary-text: 146, 147, 164;
   --divider-circle: 227, 228, 241;
+  --circle: 227, 228, 241;
 }
 
 .dark {
@@ -23,5 +24,6 @@
   --finished-task: 76, 79, 101;
   --primary-text: 119, 121, 146;
   --divider-circle: 57, 57, 75;
+  --circle: 57, 58, 75;
   --hover: 227, 228, 241;
 }
