@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
-type Todo = {
+export type Todo = {
     title: string;
     isDone: boolean;
 }
@@ -17,7 +17,6 @@ type TodoContextType = {
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 const TodoProvider = ({ children }: { children: ReactNode}) => {
-00
 
     const [Todos, setTodos] = useState<Array<Todo>>([]);
 
