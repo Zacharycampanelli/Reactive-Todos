@@ -15,7 +15,7 @@ function App() {
 
 
       <Jumbotron />
-      <div className={`size-full min-h-screen	px-6 -mt-[25vh]`}>
+      <div className={`size-full min-h-screen	px-6 -mt-[25vh] bg-dividerCircle -z-30`}>
         <ToDoContainer />
       
       </div>

@@ -3,10 +3,11 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 export type Todo = {
     title: string;
     isDone: boolean;
+    key: string;
 }
 
 type TodoContextType = {
-    Todos: Array<Todo>;
+    todos: Array<Todo>;
     toggleTodo: (TodoTitle: string) => void;
     addTodo: (Todo: Todo) => void;
     removeTodo: (TodoTitle: string) => void;
@@ -18,28 +19,28 @@ const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 const TodoProvider = ({ children }: { children: ReactNode}) => {
 
-    const [Todos, setTodos] = useState<Array<Todo>>([]);
+    const [todos, setTodos] = useState<Array<Todo>>([]);
 
     const toggleTodo = (TodoTitle: string) => {
         setTodos((prevTodos) =>
-            prevTodos.map((Todo) =>
-                Todo.title === TodoTitle ? { ...Todo, isDone: !Todo.isDone } : Todo
+            prevTodos.map((todo) =>
+                todo.title === TodoTitle ? { ...todo, isDone: !todo.isDone } : todo
             )
         );
     };
 
-    const addTodo = (Todo: Todo) => {
-        setTodos((prevTodos) => [...prevTodos, Todo]);
+    const addTodo = (todo: Todo) => {
+        setTodos((prevTodos) => [...prevTodos, todo]);
     }
 
     const removeTodo = (TodoTitle: string) => {
-        setTodos((prevTodos) => prevTodos.filter((Todo) => Todo.title !== TodoTitle));
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.title !== TodoTitle));
     }
-    const finishedTodos = Todos.filter((Todo) => Todo.isDone);
-    const unfinishedTodos = Todos.filter((Todo) => !Todo.isDone);
+    const finishedTodos = todos.filter((todo) => todo.isDone);
+    const unfinishedTodos = todos.filter((todo) => !todo.isDone);
 
 
-    return <TodoContext.Provider value={{ Todos, toggleTodo, addTodo, removeTodo, finishedTodos, unfinishedTodos }}>{children}</TodoContext.Provider>;
+    return <TodoContext.Provider value={{ todos, toggleTodo, addTodo, removeTodo, finishedTodos, unfinishedTodos }}>{children}</TodoContext.Provider>;
 };
 
 

@@ -2,6 +2,7 @@ import { Checkbox, Input } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useTodo } from '../../context/ToDoContext';
+import { v4 as uuidv4 } from 'uuid';
 
 const ToDoInput = () => {
   const { toggleTodo, addTodo } = useTodo();
@@ -12,6 +13,7 @@ const addToList = (Task: string) => {
     addTodo({
       title: Task,
       isDone: isDone,
+      key: uuidv4(),
     });
     setIsDone(false);
 }
