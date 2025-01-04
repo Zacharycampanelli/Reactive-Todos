@@ -8,40 +8,46 @@ export type Todo = {
 
 type TodoContextType = {
     todos: Array<Todo>;
-    toggleTodo: (TodoTitle: string) => void;
+    toggleTodo: (TodoKey: string) => void;
     addTodo: (Todo: Todo) => void;
-    removeTodo: (TodoTitle: string) => void;
+    removeTodo: (TodoKey: string) => void;
     finishedTodos: Array<Todo>;
     unfinishedTodos: Array<Todo>;
-}
-
+  };
+ 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
-const TodoProvider = ({ children }: { children: ReactNode}) => {
-
+const TodoProvider = ({ children }: { children: ReactNode }) => {
     const [todos, setTodos] = useState<Array<Todo>>([]);
-
-    const toggleTodo = (TodoTitle: string) => {
-        setTodos((prevTodos) =>
-            prevTodos.map((todo) =>
-                todo.title === TodoTitle ? { ...todo, isDone: !todo.isDone } : todo
-            )
-        );
+  
+    const toggleTodo = (TodoKey: string) => {
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.key === TodoKey ? { ...todo, isDone: !todo.isDone } : todo
+        )
+      );
     };
-
+  
     const addTodo = (todo: Todo) => {
-        setTodos((prevTodos) => [...prevTodos, todo]);
-    }
-
-    const removeTodo = (TodoTitle: string) => {
-        setTodos((prevTodos) => prevTodos.filter((todo) => todo.title !== TodoTitle));
-    }
+        console.log('here')
+      setTodos((prevTodos) => [...prevTodos, todo]);
+    };
+  
+    const removeTodo = (TodoKey: string) => {
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.key !== TodoKey));
+    };
+  
     const finishedTodos = todos.filter((todo) => todo.isDone);
     const unfinishedTodos = todos.filter((todo) => !todo.isDone);
-
-
-    return <TodoContext.Provider value={{ todos, toggleTodo, addTodo, removeTodo, finishedTodos, unfinishedTodos }}>{children}</TodoContext.Provider>;
-};
+  
+    return (
+      <TodoContext.Provider
+        value={{ todos, toggleTodo, addTodo, removeTodo, finishedTodos, unfinishedTodos }}
+      >
+        {children}
+      </TodoContext.Provider>
+    );
+  };
 
 
 const useTodo = (): TodoContextType => {

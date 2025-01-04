@@ -1,6 +1,6 @@
 import { useMediaQuery } from 'usehooks-ts';
-import { useTheme } from '../../context/ThemeContext';
-import { desktopDark, desktopLight, mobileDark, mobileLight } from '../images/backgrounds';
+import { useTheme } from '../context/ThemeContext';
+import { desktopDark, desktopLight, mobileDark, mobileLight } from '../assets/images/backgrounds';
 
 const Jumbotron = () => {
   const { theme } = useTheme();

@@ -2,9 +2,9 @@ import { useContext, useState } from 'react';
 
 import './index.css';
 import { ThemeProvider } from './context/ThemeContext';
-import Jumbotron from './assets/components/Jumbotron';
-import ToDoContainer from './assets/components/ToDoContainer';
-import ThemeContainer from './assets/components/ThemeContainer';
+import Jumbotron from './components/Jumbotron';
+import ToDoContainer from './components/ToDoContainer';
+import ThemeContainer from './components/ThemeContainer';
 import { TodoProvider } from './context/ToDoContext';
 function App() {
   return (
