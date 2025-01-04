@@ -9,13 +9,13 @@ import { v4 as uuidv4 } from 'uuid'
 
 const ToDoContainer = () => {
   const { theme, toggleTheme } = useTheme()
-  const { todos, addTodo } = useTodo();
+  const { addTodo } = useTodo();
 
   const addNewTodo = (task: string) => {
     addTodo({
       title: task.trim(),
       isDone: false,
-      key: (uuidv4()),
+      key: uuidv4(),
     });
   };
 
@@ -27,9 +27,7 @@ const ToDoContainer = () => {
         <h1 className="font-josefin text-[40px] text-white tracking-[15px] z-0">TODO</h1>
         <img src={theme === 'light' ? moon : sun} alt="icon" onClick={toggleTheme} className="cursor-pointer z-10" />
       </div>
-      {/* Render ToDoItem for new item creation */}
       <ToDoItem newItem={true} addNewTodo={addNewTodo} />
-      {/* Render the ToDoList */}
       <ToDoList />
     </div>
   );

@@ -32,6 +32,7 @@ const [task, setTask] = useState('');
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && newItem && addNewTodo) {
       const task = (e.target as HTMLInputElement).value.trim();
+      console.log(task)
       if(task) {
         addNewTodo(task.trim());
         setTask('');
@@ -48,29 +49,17 @@ const [task, setTask] = useState('');
   };
 
   return (
-    <Field className="relative grid w-full items-center gap-1.5">
+    <Field>
       <Input
-        className={`bg-taskBox pl-[52px] rounded-xl border border-solid border-taskBox px-5 py-3 text-activeTask ${
-          toDo?.isDone ? 'line-through decoration-activeTask' : ''
-        } focus:outline-none`}
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+        onKeyDown={handleEnter}
+        placeholder="Create a new todo..."
         name="new_todo"
         type="text"
         placeholder={newItem ? "Create a new todo..." : undefined}
         defaultValue={toDo?.title}
-        onKeyDown={handleEnter}
-        onClick={() => setIsEditable(true)}
       />
-      {!newItem && (
-        <Checkbox
-          checked={toDo?.isDone}
-          onChange={handleFinishedTask}
-          className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white text-primaryText ${
-            toDo?.isDone ? 'bg-blue-500 text-finishedTask border-none' : ''
-          }`}
-        >
-          <CheckIcon className="w-4 h-4 size-5 stroke-white stroke-[4px] z-30 mx-auto my-auto pt-1" />
-        </Checkbox>
-      )}
     </Field>
   );
 };
