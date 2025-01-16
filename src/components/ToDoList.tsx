@@ -5,7 +5,7 @@ import { Disclosure } from "@headlessui/react"
 import { v4 as uuidv4 } from 'uuid'
 
 const ToDoList = () => {
-    const { todos,  toggleTodo, removeTodo } = useTodo()
+    
 
     useTimeout(() => {
         console.log('Hello')

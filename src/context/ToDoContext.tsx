@@ -10,6 +10,7 @@ type TodoContextType = {
     todos: Array<Todo>;
     toggleTodo: (TodoKey: string) => void;
     addTodo: (Todo: Todo) => void;
+    updateTodo: (Todo: Todo) => void;
     removeTodo: (TodoKey: string) => void;
     finishedTodos: Array<Todo>;
     unfinishedTodos: Array<Todo>;
@@ -32,6 +33,10 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
         console.log('here')
       setTodos((prevTodos) => [...prevTodos, todo]);
     };
+
+    const updateTodo = (todo: Todo) => {
+        setTodos((prevTodos) => prevTodos.map((t) => t.key === todo.key ? {...t, title: t.title} : t))
+    }
   
     const removeTodo = (TodoKey: string) => {
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.key !== TodoKey));
@@ -42,7 +47,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   
     return (
       <TodoContext.Provider
-        value={{ todos, toggleTodo, addTodo, removeTodo, finishedTodos, unfinishedTodos }}
+        value={{ todos, toggleTodo, addTodo, updateTodo, removeTodo, finishedTodos, unfinishedTodos }}
       >
         {children}
       </TodoContext.Provider>

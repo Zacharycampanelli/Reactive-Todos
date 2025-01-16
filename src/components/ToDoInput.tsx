@@ -4,19 +4,29 @@ import { useState } from 'react';
 import { Todo, useTodo } from '../context/ToDoContext';
 import { v4 as uuidv4 } from 'uuid';
 
-interface ToDoItemProps {
+interface ToDoInputProps {
   toDo?: Todo;
   newItem?: boolean;
   addNewTodo?: (task: string) => void;
 
 }
 
-const ToDoItem: React.FC<ToDoItemProps> = ({ toDo, newItem, addNewTodo                                                                                              }) => {
+const ToDoInput: React.FC<ToDoInputProps> = ({ toDo, newItem, addNewTodo                                                                                              }) => {
   const { toggleTodo, addTodo } = useTodo();
   // const [isDone, setIsDone] = useState(toDo?.isDone || false);
   const [isEditable, setIsEditable] = useState(newItem || false);
   // const [isNewItem, setIsNewItem] = useState(newItem || false);
 const [task, setTask] = useState('');
+  // const addToList = (Task: string) => {
+  //   if (Task.trim() !== '') {
+  //     addTodo({
+  //       title: Task.trim(),
+  //       isDone: false,
+  //       key: uuidv4(),
+  //     });
+  //     setIsNewItem(false);
+  //   }
+  // };
 
   
 
@@ -37,4 +47,4 @@ const [task, setTask] = useState('');
   );
 };
 
-export default ToDoItem;
+export default ToDoInput;
