@@ -10,16 +10,12 @@ function App() {
   return (
     <ThemeProvider>
       <TodoProvider>
-
-    <ThemeContainer>
-
-
-      <Jumbotron />
-      <div className={`size-full min-h-screen	px-6 -mt-[25vh] bg-dividerCircle -z-30`}>
-        <ToDoContainer />
-      
-      </div>
-    </ThemeContainer>
+        <ThemeContainer>
+          <Jumbotron />
+          <div className={`size-full min-h-screen	px-6 -mt-[25vh] bg-dividerCircle -z-30`}>
+            <ToDoContainer />
+          </div>
+        </ThemeContainer>
       </TodoProvider>
     </ThemeProvider>
   );
