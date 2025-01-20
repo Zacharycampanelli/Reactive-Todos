@@ -19,7 +19,7 @@ const ToDoForm = () => {
   };
 
   return (
-    <Field className="relative grid w-full items-center gap-1.5">
+    <Field className="relative grid w-full items-center mb-8">
       <Input 
        className={`bg-taskBox pl-[52px] rounded-xl border border-solid border-taskBox px-5 py-3 text-activeTask `}
               name="new_todo"
