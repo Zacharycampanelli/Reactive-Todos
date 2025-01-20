@@ -25,7 +25,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ toDo }) => {
     <Field className="relative grid w-full items-center not-last:border-b-[1px]  border-solid border-dividerCircle">
       <Input
         className={`bg-taskBox  pl-[52px] first:rounded-xl first:border-solid first:border-white first:border-1  px-5 py-3 text-activeTask  ${
-          toDo?.isDone ? 'line-through decoration-activeTask' : ''
+          toDo?.isDone ? 'line-through decoration-activeTask decoration-finishedTask text-finishedTask' : ''
         } focus:outline-none`}
         name="todo_item"
         type="text"
@@ -39,8 +39,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ toDo }) => {
       <Checkbox
         checked={toDo?.isDone}
         onChange={handleFinishedTask}
-        className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white text-primaryText 
-        data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask border-none`}
+        className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white 
+        data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask data-[checked]:border-none`}
       >
         <CheckIcon className="w-4 h-4  stroke-white stroke-[4px] z-30 mx-auto my-auto pt-1" />
 
