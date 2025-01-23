@@ -1,7 +1,11 @@
 import { useTheme } from '../context/ThemeContext';
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
-const ThemeContainer = ({ children }: { children: ReactNode }) => {
+interface ThemeContainerProps {
+  children: ReactNode;
+}
+
+const ThemeContainer:FC<ThemeContainerProps> = ({ children }) => {
   const { theme } = useTheme();
   return <div className={theme}>{children}</div>;
 };

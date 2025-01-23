@@ -1,13 +1,13 @@
 import { Button, Checkbox, Field, Input } from '@headlessui/react';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Todo, useTodo } from '../context/ToDoContext';
 
 interface ToDoItemProps {
   toDo?: Todo;
 }
 
-const ToDoItem: React.FC<ToDoItemProps> = ({ toDo }) => {
+const ToDoItem:FC<ToDoItemProps> = ({ toDo }) => {
   const { toggleTodo, editTodo, removeTodo } = useTodo();
   // const [isDone, setIsDone] = useState(toDo?.isDone || false);
   // const [isEditable, setIsEditable] = useState(newItem || false);
