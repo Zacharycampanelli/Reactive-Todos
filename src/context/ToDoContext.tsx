@@ -13,6 +13,7 @@ type TodoContextType = {
     addTodo: (todoTitle: string) => void;
     editTodo: (todoKey: string, newText: string) => void;
     removeTodo: (todoKey: string) => void;
+    clearCompleted: () => void;
   };
  
   const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -54,11 +55,13 @@ type TodoContextType = {
         return prevTodos.filter((todo) => todo.key !== todoKey)});
     };
   
-
+    const clearCompleted = () => {
+      setTodos((prevTodos) => prevTodos.filter((todo) => !todo.isDone));  
+    }
     
     return (
       <TodoContext.Provider
-        value={{ todos, toggleTodo, addTodo, editTodo, removeTodo }}
+        value={{ todos, toggleTodo, addTodo, editTodo, removeTodo, clearCompleted }}
       >
         {children}
       </TodoContext.Provider>

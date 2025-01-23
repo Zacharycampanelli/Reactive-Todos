@@ -11,7 +11,9 @@ interface ToDoListProps {
 }
 
 const ToDoList:FC<ToDoListProps> = ({viewedTodos}) => {
-  const { todos, toggleTodo, removeTodo } = useTodo();
+  const { todos, toggleTodo, removeTodo, clearCompleted } = useTodo();
+const [todosLeft, setTodosLeft] = useState<number>(todos.length);
+
 
   const filteredTodos = useMemo(() => {
       switch (viewedTodos) {
@@ -24,6 +26,10 @@ const ToDoList:FC<ToDoListProps> = ({viewedTodos}) => {
       }
   }, [viewedTodos, todos]);
 
+  useEffect(() => {
+      setTodosLeft(todos.filter((todo) => !todo.isDone).length);
+  }, [todos]);
+
       return (
     <Disclosure as="div" className="z-20 w-full">
       <div className="w-full flex text-xs flex-col items-center rounded-xl border-solid border-white border-1 bg-taskBox">
@@ -31,7 +37,7 @@ const ToDoList:FC<ToDoListProps> = ({viewedTodos}) => {
           <ToDoItem toDo={todo} key={todo.key} />
         ))}
       <div className="w-full flex justify-between px-5 py-4 text-primaryText rounded-xl border-solid border-white border-1 bg-taskBox">
-        {todos.length} {todos.length === 1 ? 'item' : 'items'} left <Button>Clear Completed</Button>
+        {todosLeft} {todosLeft === 1 ? 'item' : 'items'} left <Button onClick={() => clearCompleted()}>Clear Completed</Button>
       </div>
       </div>
     </Disclosure>
