@@ -32,7 +32,7 @@ const [todosLeft, setTodosLeft] = useState<number>(todos.length);
 
       return (
     <Disclosure as="div" className="z-20 w-full">
-      <div className="w-full flex text-xs flex-col items-center rounded-xl border-solid border-white border-1 bg-taskBox">
+      <div className="w-full flex text-xs flex-col items-center rounded-xl border-solid border-white border-1 bg-taskBox shadow-lg">
         {filteredTodos.map((todo) => (
           <ToDoItem toDo={todo} key={todo.key} />
         ))}

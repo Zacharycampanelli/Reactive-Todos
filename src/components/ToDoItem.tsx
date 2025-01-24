@@ -26,7 +26,7 @@ const ToDoItem:FC<ToDoItemProps> = ({ toDo }) => {
       <Input
         className={`bg-taskBox  pl-[52px] first:rounded-xl first:border-solid first:border-white first:border-1  px-5 py-3 text-activeTask  ${
           toDo?.isDone ? 'line-through decoration-activeTask decoration-finishedTask text-finishedTask' : ''
-        } focus:outline-none`}
+        } focus:outline-none hover:cursor-pointer`}
         name="todo_item"
         type="text"
         defaultValue={toDo?.title}
@@ -40,7 +40,7 @@ const ToDoItem:FC<ToDoItemProps> = ({ toDo }) => {
         checked={toDo?.isDone}
         onChange={handleFinishedTask}
         className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white 
-        data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask data-[checked]:border-none`}
+        data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask data-[checked]:border-none hover:border-gradientStart hover:cursor-pointer`}
       >
         <CheckIcon className="w-4 h-4  stroke-white stroke-[4px] z-30 mx-auto my-auto pt-1" />
 
@@ -48,7 +48,7 @@ const ToDoItem:FC<ToDoItemProps> = ({ toDo }) => {
       <Button 
       className={`absolute right-5`}
       onClick={() => removeTodo(toDo.key)}>
-        <XMarkIcon className="w-4 h-4 stroke-activeTask stroke-[3px] z-30 mx-auto my-auto pt-1" />
+        <XMarkIcon className="w-4 h-4 stroke-activeTask stroke-[3px] z-30 mx-auto my-auto pt-1 hover:cursor-pointer" />
       </Button>
     </Field>
   );
