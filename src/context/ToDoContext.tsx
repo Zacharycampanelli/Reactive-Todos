@@ -4,15 +4,16 @@ import { v4 as uuidv4 } from 'uuid'
 export type Todo = {
     title: string;
     isDone: boolean;
-    key: string;
+    id: string;
 }
 
 type TodoContextType = {
     todos: Array<Todo>;
-    toggleTodo: (todoKey: string, isDone: boolean) => void;
+    setTodos?: React.Dispatch<React.SetStateAction<Todo[]>>;
+    toggleTodo: (todoid: string, isDone: boolean) => void;
     addTodo: (todoTitle: string) => void;
-    editTodo: (todoKey: string, newText: string) => void;
-    removeTodo: (todoKey: string) => void;
+    editTodo: (todoid: string, newText: string) => void;
+    removeTodo: (todoid: string) => void;
     clearCompleted: () => void;
   };
  
@@ -25,15 +26,15 @@ type TodoContextType = {
   
     const addTodo = (todoTitle: string) => {
         setTodos((prevTodos) => {
-            return [...prevTodos, {title: todoTitle, isDone: false, key: uuidv4()}]
+            return [...prevTodos, {title: todoTitle, isDone: false, id: uuidv4()}]
         });
     }
     
     
-    const editTodo = (todoKey: string, newText: string) => {
+    const editTodo = (todoid: string, newText: string) => {
         setTodos((prevTodos) => {
             return prevTodos.map((todo) => {
-                if (todo.key === todoKey) {
+                if (todo.id === todoid) {
                     return {...todo, title: newText}
                 }
                 return todo
@@ -42,17 +43,17 @@ type TodoContextType = {
         });
     }
     
-    const toggleTodo = (todoKey: string, isDone: boolean) => {
+    const toggleTodo = (todoid: string, isDone: boolean) => {
       setTodos((prevTodos) =>
         prevTodos.map((todo) =>
-          todo.key === todoKey ? { ...todo, isDone: !todo.isDone } : todo
+          todo.id === todoid ? { ...todo, isDone: !todo.isDone } : todo
         )
       );
     };
   
-    const removeTodo = (todoKey: string) => {
+    const removeTodo = (todoid: string) => {
       setTodos((prevTodos) =>{
-        return prevTodos.filter((todo) => todo.key !== todoKey)});
+        return prevTodos.filter((todo) => todo.id !== todoid)});
     };
   
     const clearCompleted = () => {
@@ -61,7 +62,7 @@ type TodoContextType = {
     
     return (
       <TodoContext.Provider
-        value={{ todos, toggleTodo, addTodo, editTodo, removeTodo, clearCompleted }}
+        value={{ todos, setTodos, toggleTodo, addTodo, editTodo, removeTodo, clearCompleted }}
       >
         {children}
       </TodoContext.Provider>
