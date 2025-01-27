@@ -11,7 +11,7 @@ function App() {
       <TodoProvider>
         <ThemeContainer>
           <Jumbotron />
-          <div className="size-full min-h-screenpx-6 -mt-[25vh] bg-dividerCircle -z-30">
+          <div className="size-full min-h-screen px-6 -mt-[18vh] bg-dividerCircle -z-30 font-josefin">
             <ToDoContainer />
           </div>
         </ThemeContainer>

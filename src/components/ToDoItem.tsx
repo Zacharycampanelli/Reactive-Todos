@@ -27,7 +27,7 @@ const ToDoItem:FC<ToDoItemProps> = ({ toDo }) => {
   return (
     <div ref={setNodeRef}  {...attributes} {...listeners} style={style} className="relative grid w-full items-center not-last:border-b-[1px] border-solid border-dividerCircle tou">
       <Input
-        className={`bg-taskBox  pl-[52px] first:rounded-xl first:border-solid first:border-white first:border-1  px-5 py-3 text-activeTask  ${
+        className={`bg-taskBox  pl-[52px] first:rounded-xl first:border-solid first:border-white first:border-1  p-5 text-activeTask  ${
           toDo?.isDone ? 'line-through decoration-activeTask decoration-finishedTask text-finishedTask' : ''
         } focus:outline-none hover:cursor-pointer`}
         name="todo_item"
