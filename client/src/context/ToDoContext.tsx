@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'
+import { createTask } from '../api';
 
 export type Todo = {
     title: string;
@@ -24,10 +25,12 @@ type TodoContextType = {
  
     
   
-    const addTodo = (todoTitle: string) => {
+    const addTodo = async (todoTitle: string) => {
         setTodos((prevTodos) => {
             return [...prevTodos, {title: todoTitle, isDone: false, id: uuidv4()}]
         });
+
+      await createTask(todoTitle, false);
     }
     
     

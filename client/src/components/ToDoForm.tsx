@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 import { useTodo } from '../context/ToDoContext';
-import { v4 as uuidv4 } from 'uuid';
 import { Checkbox, Field, Input } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 
