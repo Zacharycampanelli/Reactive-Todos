@@ -1,22 +1,20 @@
-import 'dotenv/config';
+import dontenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import connectDB from './config/db.js';
+
+
+dontenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-connectDB();
+
 
 // Routes
-
-db.once('open', () => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
