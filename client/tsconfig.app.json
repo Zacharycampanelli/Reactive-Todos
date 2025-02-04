@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "src/assets/components/ToDoContainer.tsx"]
+  "include": ["client/src", "client/src/assets/components/ToDoContainer.tsx"]
 }
