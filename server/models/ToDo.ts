@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const ToDoSchema = new Schema({
     title: {
@@ -15,3 +15,7 @@ const ToDoSchema = new Schema({
         required: true
     }
 }, { timestamps: true });
+
+const ToDo = model('ToDo', ToDoSchema);
+
+export default ToDo;
