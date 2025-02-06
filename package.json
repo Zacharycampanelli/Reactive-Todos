@@ -1,18 +1,30 @@
 {
   "name": "todoapp",
   "version": "1.0.0",
-  "main": "server/server.js",
+  "main": "server/server.ts",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server/server.ts",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
-    "install": "cd server && npm i && cd ../client && npm i --production=false",
+    "start": "nodemon --exec ts-node server/server.ts",
+    "client": "cd client && npm run dev",
+    "develop": "concurrently \"npm start\" \"cd client && npm run dev\"",
+    "installDeps": "npm i && cd client && npm i",
     "build": "cd client && npm run build"
-  },
+      },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.9.6"
+  },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
   }
 }
