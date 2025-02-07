@@ -1,5 +1,5 @@
-import { Button } from '@headlessui/react';
 import { Dispatch, FC, SetStateAction } from 'react';
+import { Button } from '@headlessui/react';
 
 interface ModalType {
     modalType: 'signin' | 'register';
@@ -8,7 +8,7 @@ interface ModalType {
 interface UserLinksProps {
     isOpen: boolean;
     toggleOpen: () => void;
-    setModalType: (modalType: 'signin' | 'register') => Dispatch<SetStateAction<ModalType>>;
+    setModalType: Dispatch<SetStateAction<"login" | "register">>
 }
 
 
@@ -18,9 +18,9 @@ const UserLinks:FC<UserLinksProps> = ({isOpen, toggleOpen, setModalType}) => {
     }
      
   return (
-    <div className="absolute z-10 flex space-x-4 text-white top-4 right-4">
+    <div className="absolute z-10 flex space-x-4 text-white top-4 right-8 text-sm">
         {/* TODO: Change based off of user's logged in status */}
-      <Button onClick={() => {toggleOpen(); setModalType('signin')}}>Sign In</Button>
+      <Button onClick={() => {toggleOpen(); setModalType('login')}}>Login In</Button>
       <Button onClick={() => {toggleOpen(); setModalType('register')}}>Register</Button>
     </div>
   );

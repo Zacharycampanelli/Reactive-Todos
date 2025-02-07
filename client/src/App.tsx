@@ -6,11 +6,12 @@ import { TodoProvider } from './context/ToDoContext';
 import './index.css';
 import UserLinks from './components/UserLinks';
 import { useEffect, useState } from 'react';
+import AuthenticationModal from './components/AuthenticationModal';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(!isOpen);
-  const [modalType, setModalType] = useState('signin');
+  const [modalType, setModalType] = useState<'login' | 'register'>('login');
 
   return (
     <ThemeProvider>
@@ -21,6 +22,7 @@ function App() {
           <div className="size-full min-h-screen px-6 -mt-[18vh] bg-dividerCircle -z-30 font-josefin">
             <ToDoContainer />
           </div>
+          <AuthenticationModal isOpen={isOpen} toggleOpen={toggleOpen} modalType={modalType} setModalType={setModalType} />
         </ThemeContainer>
       </TodoProvider>
     </ThemeProvider>
