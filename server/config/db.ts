@@ -2,6 +2,13 @@
 import mongoose from 'mongoose';
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/todos');
+mongoose
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/todos')
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-export default mongoose.connection
+export default mongoose.connection;
