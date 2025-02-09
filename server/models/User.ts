@@ -32,7 +32,7 @@ UserSchema.pre('save', async function(next) {
 
 // Custom method to compare and validate password for logging in
 UserSchema.methods.isCorrectPassword = async function(password) {
-    return bcrypt.compare(password, this.password);
+    return await bcrypt.compare(password, this.password);
 }
 
 const User = model('User', UserSchema);

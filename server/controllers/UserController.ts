@@ -1,21 +1,106 @@
-import { User } from "../models";
-import { generateToken } from "../utils/jwtoken";
+import { User } from '../models';
+import { generateToken } from '../utils/jwtoken';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 
-export const register = async (req: any, res: any, next: any) => {
-    try {
-        const { name, email, password } = req.body;
-        const existingUser = await User.findOne({email})
-        if (existingUser) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-        const user = await User.create({ name, email, password,  });
-        const token = generateToken(user._id.toString() as string);
-        console.log(user, token)
-        // res.cookie('token', token, { httpOnly: false, withCredentials: true });
-        res.status(201).json({ message: "User logged in successfully: ", user, token });
-        // next()
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+export const register = async (req: any, res: any) => {
+  try {
+    const { name, email, password } = req.body;
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
     }
-}
+    const user = await User.create({ name, email, password });
+    const token = generateToken(user._id.toString() as string);
+    console.log(user, token);
+    // res.cookie('token', token, { httpOnly: false, withCredentials: true });
+    res.status(201).json({ message: 'User logged in successfully: ', user, token });
+    // next()
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const login = async (req: any, res: any) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'User does not exist' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+    res.status(200).json({ message: 'User logged in successfully', user });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const forgottenPassword = async (req: any, res: any) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '15m' });
+console.log(process.env.CLIENT_URL)
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: user.email,
+        subject: 'Password Reset',
+        html: `
+        <h2>Please click on the link below to reset your password</h2>
+        <a href="${process.env.CLIENT_URL}/?reset=${token}"</a>
+        <p><b>Note: </b> The link above will expire in 15 minutes</p>
+        `,
+        
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error.message);
+        return res.status(500).json({ message: error.message });
+      }
+      res.status(200).json({ message: `Email sent to ${user.email}` });
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const resetPassword = async (req: any, res: any) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, async (error: any, decoded: any) => {
+        if (error) {
+          return res.status(400).json({ message: 'Expired link. Try again' });
+        }
+        const user = await User.findOne({ email: decoded.email });
+        if (!user) {
+          return res.status(400).json({ message: 'User does not exist' });
+        }
+        const saltRounds = 10;
+        user.password = await bcrypt.hash(newPassword, saltRounds);
+        await user.save();
+        res.status(200).json({ message: 'Password reset successful' });
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
