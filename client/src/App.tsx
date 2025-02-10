@@ -21,6 +21,9 @@ function App() {
     if (token) {
       setResetToken(token);
       setResetModalOpen(true);
+
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, "", newUrl);
     }
   }, []);
 console.log(window.location)

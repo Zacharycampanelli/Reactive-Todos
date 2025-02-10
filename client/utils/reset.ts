@@ -13,7 +13,7 @@ export const handleReset = async (token, newPassword, setMessage, onSuccess) => 
     setMessage(data.message);
 
     if (response.ok) {
-      setTimeout(onSuccess, 2000);
+        onSuccess()
     }
   } catch (error) {
     setMessage("Something went wrong. Try again.");
