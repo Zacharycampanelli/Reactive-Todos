@@ -6,22 +6,22 @@ interface ModalType {
 }
 
 interface UserLinksProps {
-    isOpen: boolean;
-    toggleOpen: () => void;
+  isAuthModalOpen: boolean;
+    toggleAuthModal: () => void;
     setModalType: Dispatch<SetStateAction<"login" | "register">>
 }
 
 
-const UserLinks:FC<UserLinksProps> = ({isOpen, toggleOpen, setModalType}) => {
-    if (isOpen) {
+const UserLinks:FC<UserLinksProps> = ({isAuthModalOpen, toggleAuthModal, setModalType}) => {
+    if (isAuthModalOpen) {
      return;
     }
      
   return (
     <div className="absolute z-10 flex space-x-4 text-white top-4 right-8 text-sm">
         {/* TODO: Change based off of user's logged in status */}
-      <Button onClick={() => {toggleOpen(); setModalType('login')}}>Login In</Button>
-      <Button onClick={() => {toggleOpen(); setModalType('register')}}>Register</Button>
+      <Button onClick={() => {toggleAuthModal(); setModalType('login')}}>Login In</Button>
+      <Button onClick={() => {toggleAuthModal(); setModalType('register')}}>Register</Button>
     </div>
   );
 };

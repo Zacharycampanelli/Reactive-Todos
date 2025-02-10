@@ -1,4 +1,4 @@
-export const handleReset = async (token, newPassword, setMessage, onSuccess) => {
+export const handleReset = async (token, newPassword, setMessage, onClose) => {
   try {
     const response = await fetch('http://localhost:3000/api/users/reset/' + token, {
       method: 'POST',
@@ -13,7 +13,7 @@ export const handleReset = async (token, newPassword, setMessage, onSuccess) => 
     setMessage(data.message);
 
     if (response.ok) {
-        onSuccess()
+        onClose()
     }
   } catch (error) {
     setMessage("Something went wrong. Try again.");
