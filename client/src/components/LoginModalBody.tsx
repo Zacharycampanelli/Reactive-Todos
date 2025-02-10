@@ -1,13 +1,14 @@
 import { Button, Field, Input, Label } from "@headlessui/react"
-import { FC } from "react"
+import { Dispatch, FC, SetStateAction } from "react"
 
 interface LoginModalBodyProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  setResetModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const LoginModalBody:FC<LoginModalBodyProps> = () => {
+const LoginModalBody:FC<LoginModalBodyProps> = ({onSubmit, setResetModalOpen}) => {
 //TODO: Styling
-    return (
+    return (<>
     <form className="flex flex-col space-y-8 ">
             <Field>
                 <Label className='w-[15%] inline-block '>Email Address</Label>
@@ -17,10 +18,12 @@ const LoginModalBody:FC<LoginModalBodyProps> = () => {
                 <Label className='w-[15%] inline-block '>Password</Label>
                 <Input type="password" placeholder="Password" />
             </Field>
-            <Button type='submit'>
+            <Button  type='submit'>
                 Log In
             </Button>
         </form>
+        <Button onClick={() => setResetModalOpen(true)}>Forgot your password? Click here</Button>
+    </>
   )
 }
 

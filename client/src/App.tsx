@@ -23,13 +23,12 @@ function App() {
       setResetModalOpen(true);
 
       const newUrl = window.location.origin + window.location.pathname;
-      window.history.replaceState({}, "", newUrl);
+      window.history.replaceState({}, '', newUrl);
     }
   }, []);
-console.log(window.location)
+
   const toggleResetModal = () => {
     setResetModalOpen(!resetModalOpen);
-    // window.history.pushState({}, '', '/');
   };
 
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -48,8 +47,9 @@ console.log(window.location)
             toggleOpen={toggleOpen}
             modalType={modalType}
             setModalType={setModalType}
+            setResetModalOpen={setResetModalOpen}
           />
-          <ResetModal isOpen={resetModalOpen} onClose={toggleResetModal} token={resetToken}/>
+          <ResetModal isOpen={resetModalOpen} onClose={toggleResetModal} token={resetToken} />
         </ThemeContainer>
       </TodoProvider>
     </ThemeProvider>
