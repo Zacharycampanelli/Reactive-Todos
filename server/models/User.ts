@@ -13,7 +13,8 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: true
     },
     toDos: [{
         type: Schema.Types.ObjectId,

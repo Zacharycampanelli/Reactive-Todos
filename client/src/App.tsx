@@ -7,11 +7,29 @@ import './index.css';
 import UserLinks from './components/UserLinks';
 import { useEffect, useState } from 'react';
 import AuthenticationModal from './components/AuthenticationModal';
-
+import ResetModal from './components/ResetModal';
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = () => setIsOpen(!isOpen);
   const [modalType, setModalType] = useState<'login' | 'register'>('login');
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+  const [resetToken, setResetToken] = useState('');
+
+  useEffect(() => {
+    const url = new URLSearchParams(window.location.search);
+    const token = url.get('resetToken');
+
+    if (token) {
+      setResetToken(token);
+      setResetModalOpen(true);
+    }
+  }, []);
+console.log(window.location)
+  const toggleResetModal = () => {
+    setResetModalOpen(!resetModalOpen);
+    // window.history.pushState({}, '', '/');
+  };
+
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
     <ThemeProvider>
@@ -22,7 +40,13 @@ function App() {
           <div className="size-full min-h-screen px-6 -mt-[18vh] bg-dividerCircle -z-30 font-josefin">
             <ToDoContainer />
           </div>
-          <AuthenticationModal isOpen={isOpen} toggleOpen={toggleOpen} modalType={modalType} setModalType={setModalType} />
+          <AuthenticationModal
+            isOpen={isOpen}
+            toggleOpen={toggleOpen}
+            modalType={modalType}
+            setModalType={setModalType}
+          />
+          <ResetModal isOpen={resetModalOpen} onClose={toggleResetModal} token={resetToken}/>
         </ThemeContainer>
       </TodoProvider>
     </ThemeProvider>
