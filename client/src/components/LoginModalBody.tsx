@@ -2,21 +2,24 @@ import { Button, Field, Input, Label } from '@headlessui/react';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { handleLogin } from '../../utils/auth';
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 interface LoginModalBodyProps {
-  setResetModalOpen: Dispatch<SetStateAction<boolean>>;
-  onClose: () => void;
+    setResetModalOpen: Dispatch<SetStateAction<boolean>>;
+    onClose: () => void;
 }
 
 const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose }) => {
-  const { theme } = useTheme();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+    const { theme } = useTheme();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const authContext = useContext(AuthContext);
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    handleLogin(email, password, setMessage, onClose);
+    await handleLogin(email, password, setMessage, onClose, authContext);
   };
   //TODO: Styling
   return (

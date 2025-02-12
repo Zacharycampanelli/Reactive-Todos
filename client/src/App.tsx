@@ -8,6 +8,7 @@ import UserLinks from './components/UserLinks';
 import { useEffect, useState } from 'react';
 import AuthenticationModal from './components/AuthenticationModal';
 import ResetModal from './components/ResetModal';
+import { AuthProvider } from './context/AuthContext';
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [modalType, setModalType] = useState<'login' | 'register'>('login');
@@ -34,25 +35,31 @@ function App() {
   const toggleAuthModal = () => setIsAuthModalOpen(!isAuthModalOpen);
 
   return (
-    <ThemeProvider>
-      <TodoProvider>
-        <ThemeContainer>
-          <UserLinks isAuthModalOpen={isAuthModalOpen} toggleAuthModal={toggleAuthModal} setModalType={setModalType} />
-          <Jumbotron />
-          <div className="size-full min-h-screen px-6 -mt-[18vh] bg-dividerCircle -z-30 font-josefin">
-            <ToDoContainer />
-          </div>
-          <AuthenticationModal
-            isAuthModalOpen={isAuthModalOpen}
-            toggleAuthModal={toggleAuthModal}
-            modalType={modalType}
-            setModalType={setModalType}
-            setResetModalOpen={setResetModalOpen}
-          />
-          <ResetModal isAuthModalOpen={resetModalOpen} onClose={toggleResetModal} token={resetToken} />
-        </ThemeContainer>
-      </TodoProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <TodoProvider>
+          <ThemeContainer>
+            <UserLinks
+              isAuthModalOpen={isAuthModalOpen}
+              toggleAuthModal={toggleAuthModal}
+              setModalType={setModalType}
+            />
+            <Jumbotron />
+            <div className="size-full min-h-screen px-6 -mt-[18vh] bg-dividerCircle -z-30 font-josefin">
+              <ToDoContainer />
+            </div>
+            <AuthenticationModal
+              isAuthModalOpen={isAuthModalOpen}
+              toggleAuthModal={toggleAuthModal}
+              modalType={modalType}
+              setModalType={setModalType}
+              setResetModalOpen={setResetModalOpen}
+            />
+            <ResetModal isAuthModalOpen={resetModalOpen} onClose={toggleResetModal} token={resetToken} />
+          </ThemeContainer>
+        </TodoProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
