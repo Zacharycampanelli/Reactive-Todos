@@ -1,5 +1,13 @@
 import { createContext, useState, ReactNode } from 'react';
 
+
+interface User {
+    name: string;
+    email: string;
+    password: string;
+    toDos: string[];
+  }
+
 interface AuthContextType {
   user: any;
   login: (userData: any) => void;
@@ -9,14 +17,13 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState<User | null>(() => {
     // Load user from local storage if exists
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  const login = (userData: any) => {
-    console.log('try')
+  const login = (userData: User) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData)); // Store user data persistently
   };

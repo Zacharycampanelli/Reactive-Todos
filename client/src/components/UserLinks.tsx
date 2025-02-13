@@ -22,11 +22,13 @@ const UserLinks:FC<UserLinksProps> = ({isAuthModalOpen, toggleAuthModal, setModa
   if (isAuthModalOpen) {
     return;
   }
+
+  const capitalize = (str: string) => { return str.charAt(0).toUpperCase() + str.slice(1); }
      
   return (
     <div className="absolute z-10 flex space-x-4 text-white top-4 right-8 text-sm">
       {user ? (<>
-      <span>Welcome, {user.name}</span>
+      <span>Welcome, {capitalize(user.name)}</span>
       <Button onClick={logout}>Logout</Button>
       </>) : (<>
       <Button onClick={() => {toggleAuthModal(); setModalType('login')}}>Log In</Button>

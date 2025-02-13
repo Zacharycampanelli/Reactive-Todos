@@ -9,7 +9,7 @@ const ToDoSchema = new Schema({
         type: Boolean,
         default: false
     },
-    user: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true

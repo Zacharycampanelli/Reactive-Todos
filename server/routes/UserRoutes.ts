@@ -1,10 +1,10 @@
 import express from 'express';
-import { register, login, forgottenPassword, resetPassword } from '../controllers/UserController';
-
+import { register, login, forgottenPassword, resetPassword, getUser } from '../controllers/UserController';
+import { authenticateUser } from '../middleware/authMiddleware';
 const router = express.Router();
 
-router.route('/').post(register)
+router.route('/').get(authenticateUser, getUser).post(register)
 router.route ('/login').post(login);
 router.route('/forgot').post(forgottenPassword);
 router.route('/reset/:token').post(resetPassword);
-module.exports = router;
+export default router;

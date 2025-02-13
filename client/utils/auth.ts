@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { AuthContext } from "../src/context/AuthContext";
+
 export const handleLogin = async (email, password, setMessage, onClose, authContext ) => {
     try {
        const response = await fetch('http://localhost:3000/api/users/login', {
@@ -10,14 +13,12 @@ export const handleLogin = async (email, password, setMessage, onClose, authCont
 
        const data = await response.json();
     setMessage(data.message);
-console.log(data)
+    
+    
     if (response.ok) {
-        // const authContext = useContext(AuthContext);
-        console.log('here', authContext)
+        const authContext = useContext(AuthContext);
         if (authContext) {
-            const { login } = authContext;
-            console.log('here', login)
-            login(data.user);
+            authContext.login(data.user);
             onClose();
         } else {
             console.log('err')

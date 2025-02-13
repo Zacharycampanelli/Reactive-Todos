@@ -38,8 +38,11 @@ export const login = async (req: any, res: any) => {
         console.log("Password comparison failed!"); 
         return res.status(400).json({ message: "Invalid credentials" });
       }
+
+
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET as string, { expiresIn: "1h" });
   
-      res.status(200).json({ message: "User logged in successfully", user });
+      res.status(200).json({ message: "User logged in successfully", user, token });
     } catch (error) {
       console.error("Login Error:", error);
       res.status(400).json({ message: error.message });
@@ -115,3 +118,18 @@ export const resetPassword = async (req: any, res: any) => {
       res.status(400).json({ message: error.message });
     }
   };
+
+  export const getUser = async (req: any, res: any) => {
+    try {
+        console.log(req.user)
+      const user = await User.findById(req.user._id
+        ).select("-password");
+        if (!user) {
+            return res.status(400).json({ message: "User does not exist" });
+            }
+        res.status(200).json({ user });
+    } catch (error) {
+        console.error("Get User Error:", error);
+        res.status(400).json({ message: error.message });
+        }       
+    }

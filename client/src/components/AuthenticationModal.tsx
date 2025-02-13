@@ -4,6 +4,7 @@ import LoginModalBody from './LoginModalBody';
 import RegisterModalBody from './RegisterModalBody';
 import { useTheme } from '../context/ThemeContext';
 
+
 interface AuthenticationModalProps {
   isAuthModalOpen: boolean;
   toggleAuthModal: () => void;

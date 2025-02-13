@@ -1,9 +1,9 @@
+import { useContext } from "react";
 import { Button, Field, Input, Label } from '@headlessui/react';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { handleLogin } from '../../utils/auth';
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { handleLogin } from '../../utils/auth';
 
 interface LoginModalBodyProps {
     setResetModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -55,7 +55,7 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
         </Field>
         <Field className="flex items-center justify-between">
           <Button
-            onClick={() => setResetModalOpen(true)}
+            onClick={() => {setResetModalOpen(true); onClose()}}
             className={`${theme === 'light' ? 'text-blue-600' : 'text-blue-400'} hover:underline transition`}
           >
             Forgot your password? Click here

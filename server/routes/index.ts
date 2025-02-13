@@ -1,8 +1,9 @@
 import express from 'express';
-
+import UserRoutes from './UserRoutes';
+import ToDoRoutes from './ToDoRoutes';
 const router = express.Router();
-const UserRoutes = require('./UserRoutes');
-// router.use('/toDos', ToDoRoutes);
-router.use('/users', UserRoutes);
 
+
+router.use('/users', UserRoutes);
+router.use('/toDos', ToDoRoutes);
 export default router;

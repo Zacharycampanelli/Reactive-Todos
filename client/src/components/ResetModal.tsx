@@ -15,20 +15,20 @@ const ResetModal: FC<ResetModalProps> = ({ isAuthModalOpen, onClose, token }) =>
   const [enterEmail, setEnterEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const resetHandler = (e) => {
+  const resetHandler = (e: React.FormEvent) => {
     e.preventDefault();
     handleReset(token, newPassword, setMessage, onClose);
   };
 
-  const emailHandler = (e) => {
+  const emailHandler = (e: React.FormEvent) => {
     e.preventDefault();
     forgotPassword(enterEmail, setMessage);
   };
 
   if (!token)
     return (
-      <Dialog open={isAuthModalOpen} onClose={onClose} className="fixed inset-0 z-50 w-[90%] h-full">
-        <DialogPanel className={`flex flex-col w-screen h-screen  mx-auto my-auto ${theme === 'light' ? 'bg-white' : 'bg-gray-700' } top-[50%] relative -translate-y-[50%] rounded-lg shadow-lg`}>
+      <Dialog open={isAuthModalOpen} onClose={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+        <DialogPanel className={`relative w-[90%] max-w-md md:max-w-lg lg:max-w-xl p-6 md:p-8 ${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-lg transition-all duration-300 transform scale-95`}>
           <form onSubmit={emailHandler} className="space-y-4 mx-8">
             <h2
               className={`text-2xl md:text-3xl font-semibold text-center mt-8  ${
