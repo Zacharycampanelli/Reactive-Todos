@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { User } from "../models";
-
+import User  from "../models/User"
 export const authenticateUser = async (req: any, res: any, next: any): Promise<void> => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -11,10 +10,11 @@ export const authenticateUser = async (req: any, res: any, next: any): Promise<v
       return;
     }
 
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+ 
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { _id: string};
+        console.log("Decoded Token", decoded);
 
-      const user = await User.findById((decoded as any)._id);
+      const user = await User.findById(decoded._id).select('-password');
       if (!user) {
         res.status(401).json({ message: "Unauthorized: User not found" });
         return;
@@ -22,12 +22,10 @@ export const authenticateUser = async (req: any, res: any, next: any): Promise<v
 
       req.user = user;
       next();
-    } catch (jwtError) {
-      console.error("JWT Verification Error:", jwtError.message);
-      res.status(401).json({ message: "Unauthorized: Invalid token" });
-    }
+
+    
   } catch (error) {
     console.error("Authentication Error:", error);
-    res.status(401).json({ message: "Unauthorized: Unexpected error" });
+    res.status(401).json({ message: "Unauthorized: Invalid Token" });
   }
 };

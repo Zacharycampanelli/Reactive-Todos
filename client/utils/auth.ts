@@ -51,3 +51,22 @@ export const handleRegister = async (name, email, password, setMessage, onClose)
     }
 }
 
+
+export const fetchUserData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/users/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // ✅ Ensure token is sent
+        },
+      });
+  
+      if (!response.ok) throw new Error("Failed to fetch user data");
+  
+      return await response.json(); // ✅ Returns user object
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+    }
+  };

@@ -3,7 +3,8 @@ import { register, login, forgottenPassword, resetPassword, getUser } from '../c
 import { authenticateUser } from '../middleware/authMiddleware';
 const router = express.Router();
 
-router.route('/').get(authenticateUser, getUser).post(register)
+router.route('/').post(register)
+router.route('/me').get(authenticateUser, getUser);
 router.route ('/login').post(login);
 router.route('/forgot').post(forgottenPassword);
 router.route('/reset/:token').post(resetPassword);

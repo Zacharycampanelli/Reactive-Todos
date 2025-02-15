@@ -121,15 +121,16 @@ export const resetPassword = async (req: any, res: any) => {
 
   export const getUser = async (req: any, res: any) => {
     try {
-        console.log(req.user)
-      const user = await User.findById(req.user._id
-        ).select("-password");
-        if (!user) {
-            return res.status(400).json({ message: "User does not exist" });
-            }
-        res.status(200).json({ user });
+      console.log("Requesting user data for:", req.user._id); // ✅ Debugging
+  
+      const user = await User.findById(req.user._id).select("-password");
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      res.status(200).json(user);
     } catch (error) {
-        console.error("Get User Error:", error);
-        res.status(400).json({ message: error.message });
-        }       
+      console.error("Get User Error:", error);
+      res.status(500).json({ message: "Error retrieving user data" });
     }
+  };
