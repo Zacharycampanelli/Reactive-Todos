@@ -11,7 +11,6 @@ interface User {
 interface AuthContextType {
   user: any;
   login: (userData: User, token: string) => void;
-
   logout: () => void;
 }
 
@@ -19,7 +18,6 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => {
-    // Load user from local storage if exists
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });

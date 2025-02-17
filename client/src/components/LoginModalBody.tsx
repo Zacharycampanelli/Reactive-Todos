@@ -1,4 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Button, Field, Input, Label } from '@headlessui/react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuthContext } from '../context/AuthContext';
 import { handleLogin } from '../../utils/auth';
@@ -17,7 +18,7 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    await handleLogin(email, password, setMessage, onClose, login);
+    await handleLogin(email, password, setMessage, login);
   };
 
   return (

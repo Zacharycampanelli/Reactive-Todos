@@ -1,4 +1,6 @@
-export const handleLogin = async (email, password, setMessage, onClose, login) => {
+
+
+export const handleLogin = async (email, password, setMessage, login) => {
   try {
     const response = await fetch('http://localhost:3000/api/users/login', {
       method: 'POST',
@@ -18,7 +20,7 @@ export const handleLogin = async (email, password, setMessage, onClose, login) =
   }
 };
 
-export const handleRegister = async (name, email, password, setMessage, onClose) => {
+export const handleRegister = async (name, email, password, setMessage, login) => {
   try {
     const response = await fetch('http://localhost:3000/api/users/', {
       method: 'POST',
@@ -29,11 +31,13 @@ export const handleRegister = async (name, email, password, setMessage, onClose)
     });
 
     const data = await response.json();
+
+    if(!response.ok) throw new Error(data.message || 'Failed to register');
+    
+    
+    login(data.user, data.token);
     setMessage(data.message);
 
-    if (response.ok) {
-      onClose();
-    }
   } catch (error) {
     setMessage('Something went wrong. Try again.');
   }

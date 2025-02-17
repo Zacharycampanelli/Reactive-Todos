@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { Button, Field, Input, Label } from '@headlessui/react';
 import { useTheme } from '../context/ThemeContext';
 import { handleRegister } from '../../utils/auth';
+import { useAuthContext } from '../context/AuthContext';
 
 interface RegisterModalBodyProps {
   onClose: () => void;
@@ -13,11 +14,11 @@ const RegisterModalBody: FC<RegisterModalBodyProps> = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  // TODO: Styling
+const { login } = useAuthContext();
 
   const registerHandler = (e) => {
     e.preventDefault();
-    handleRegister(name, email, password, setMessage, onClose);
+    handleRegister(name, email, password, setMessage, login);
   };
 
   return (
