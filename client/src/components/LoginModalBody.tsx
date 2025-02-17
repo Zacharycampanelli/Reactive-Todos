@@ -1,27 +1,25 @@
-import { useContext } from "react";
-import { Button, Field, Input, Label } from '@headlessui/react';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from '../context/AuthContext';
 import { handleLogin } from '../../utils/auth';
 
 interface LoginModalBodyProps {
-    setResetModalOpen: Dispatch<SetStateAction<boolean>>;
-    onClose: () => void;
+  setResetModalOpen: Dispatch<SetStateAction<boolean>>;
+  onClose: () => void;
 }
 
 const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose }) => {
-    const { theme } = useTheme();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const authContext = useContext(AuthContext);
+  const { theme } = useTheme();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const { login } = useAuthContext();
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    await handleLogin(email, password, setMessage, onClose, authContext);
+    await handleLogin(email, password, setMessage, onClose, login);
   };
-  //TODO: Styling
+
   return (
     <>
       <form className="space-y-4" onSubmit={loginHandler}>
@@ -55,7 +53,10 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
         </Field>
         <Field className="flex items-center justify-between">
           <Button
-            onClick={() => {setResetModalOpen(true); onClose()}}
+            onClick={() => {
+              setResetModalOpen(true);
+              onClose();
+            }}
             className={`${theme === 'light' ? 'text-blue-600' : 'text-blue-400'} hover:underline transition`}
           >
             Forgot your password? Click here

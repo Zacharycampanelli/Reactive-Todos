@@ -10,7 +10,8 @@ interface User {
 
 interface AuthContextType {
   user: any;
-  login: (userData: any) => void;
+  login: (userData: User, token: string) => void;
+
   logout: () => void;
 }
 
@@ -25,21 +26,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const loadUserData = async () => {
+      const token = localStorage.getItem('token');
+      if (!token || token === 'null') {
+        return;
+      }
       const userData = await fetchUserData();
       if (userData) setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
     };
     loadUserData();
   }, []);
 
-  //   const login = (userData: User) => {
-  //     setUser(userData);
-  //     localStorage.setItem('user', JSON.stringify(userData)); // Store user data persistently
-  //   };
+  const login = (userData: User, token: string) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData)); // ✅ Save user in local storage
+    localStorage.setItem('token', token); // ✅ Save token
+  };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user'); // Remove user data from local storage
-    window.location.href = '/';
+    setUser(null); // ✅ Clear user from state
+    localStorage.removeItem('user'); // ✅ Remove user from local storage
+    localStorage.removeItem('token'); // ✅ Remove token
+    window.location.href = '/'; // ✅ Redirect to login page
   };
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;

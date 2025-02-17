@@ -1,16 +1,14 @@
 import { ToDo, User } from '../models';
 
 export const getTodosByUser = async (req: any, res: any) => {
- try{
-    console.log('User id from Token:', req.user._id);
+  try {
     const todos = await ToDo.find({ userId: req.user._id });
     res.status(200).json({ message: 'To Dos retrieved successfully', todos });
- }
-    catch(error){
-        console.error("Error fetching todos:", error);    }
-        res.status(500).json({ message: "Error fetching todos" });
-
-}
+  } catch (error) {
+    console.error('Error fetching todos:', error);
+  }
+  res.status(500).json({ message: 'Error fetching todos' });
+};
 
 export const addToDo = async (req: any, res: any) => {
   try {
