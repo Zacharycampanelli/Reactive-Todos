@@ -1,5 +1,3 @@
-
-
 export const handleLogin = async (email, password, setMessage, login) => {
   try {
     const response = await fetch('http://localhost:3000/api/users/login', {
@@ -13,7 +11,7 @@ export const handleLogin = async (email, password, setMessage, login) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data.message);
 
-    login(data.user, data.token); // ✅ Store user & token
+    login(data.user, data.token); 
     setMessage('Login successful!');
   } catch (error) {
     setMessage(error.message);
@@ -37,7 +35,7 @@ export const handleRegister = async (name, email, password, setMessage, login) =
     
     login(data.user, data.token);
     setMessage(data.message);
-
+    window.location.href = '/';
   } catch (error) {
     setMessage('Something went wrong. Try again.');
   }
@@ -53,7 +51,7 @@ export const fetchUserData = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/users/me', {
+    const response = await fetch('http://localhost:3000/api/users/user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

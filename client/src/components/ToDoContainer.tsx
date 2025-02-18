@@ -1,5 +1,13 @@
 import { FC, useState } from 'react';
-import { closestCorners, DndContext, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  closestCorners,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useTheme } from '../context/ThemeContext';
 import { useTodo } from '../context/ToDoContext';
@@ -37,12 +45,12 @@ const ToDoContainer: FC = () => {
   };
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {activationConstraint: {distance: 10}}),
-    useSensor(TouchSensor, {activationConstraint: {distance: 10}}), 
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
+    useSensor(TouchSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
+      coordinateGetter: sortableKeyboardCoordinates,
     })
-  )
+  );
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
@@ -55,7 +63,7 @@ const ToDoContainer: FC = () => {
         <ToDoList viewedTodos={viewedTodos} setViewedTodos={setViewedTodos} />
         {isMobile ? <SelectList setViewedTodos={setViewedTodos} /> : ''}
       </div>
-      <p className='text-sm text-primaryText text-center pt-12'>Drag and drop to reorder list</p>
+      <p className="text-sm text-primaryText text-center pt-12">Drag and drop to reorder list</p>
     </DndContext>
   );
 };
