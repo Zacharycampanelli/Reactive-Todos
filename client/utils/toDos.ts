@@ -68,3 +68,9 @@ export const addToDoHandler = async (title: string, addToDo: AddToDoHandler): Pr
     console.error('🚨 Error adding todo:', error);
   }
 };
+
+const toggleToDoHandler = async (toDoId: string, isDone: boolean, setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>) => {}
+
+const editToDoHandler = async (toDoId: string, newText: string, setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>) => {}
+
+const removeToDoHandler = async (toDoId: string, setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>) => {}
