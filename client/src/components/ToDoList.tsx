@@ -6,7 +6,6 @@ import ToDoItem from './ToDoItem';
 import { SELECT_OPTIONS } from './ToDoContainer';
 import { useMediaQuery } from 'usehooks-ts';
 import SelectList from './SelectList';
-import { initialToDos } from '../../utils/toDos';
 import { useAuthContext } from '../context/AuthContext';
 interface ToDoListProps {
   viewedTodos: string;
@@ -17,8 +16,7 @@ const ToDoList: FC<ToDoListProps> = ({ viewedTodos, setViewedTodos }) => {
   const { todos, clearCompleted } = useTodo();
   const [todosLeft, setTodosLeft] = useState<number>(todos.length);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const { setInitialTodos } = useTodo();
-  const { user } = useAuthContext();  
+  const { user } = useAuthContext();
 
   const filteredTodos = useMemo(() => {
     switch (viewedTodos) {
@@ -35,16 +33,16 @@ const ToDoList: FC<ToDoListProps> = ({ viewedTodos, setViewedTodos }) => {
     setTodosLeft(todos.filter((todo) => !todo.isDone).length);
   }, [todos]);
 
-  useEffect(() => {
-    setInitialTodos(initialToDos);
-  }, [user]);
-  
+  // useEffect(() => {
+  //   setInitialTodos(initialToDos);
+  // }, [user]);
+
   return (
     <SortableContext items={filteredTodos.map((todo) => todo.id)} strategy={verticalListSortingStrategy}>
       <Disclosure as="div" className="z-20 w-full">
         <div className="w-full flex text-xs flex-col items-center rounded-xl border-solid border-white border-1 bg-taskBox shadow-lg">
           {filteredTodos.map((todo) => (
-            <ToDoItem toDo={todo} id={todo.id} key={todo.id} />
+            <ToDoItem toDo={todo} key={todo.id} />
           ))}
           <div className="w-full flex justify-between items-center px-5 py-4 text-primaryText rounded-xl border-solid border-white border-1 bg-taskBox">
             <span className="w-1/3">

@@ -23,19 +23,7 @@ interface ToDo {
   id: string;
 }
 
-type AddToDoHandler = (toDo: ToDo) => void;
-
-export const addToDoHandler = async (title: string, addToDo: AddToDoHandler): Promise<ToDo | void> => {
-  if (!title) {
-    console.error('🚨 Title is required');
-    return;
-  }
-  const userId = JSON.parse(localStorage.getItem('user') || '{}')?._id;
-  if (!userId) {
-    console.error('🚨 No user found in localStorage');
-    return;
-  }
-
+export const addToDoHandler = async (title: string, isDone: boolean, userId: string): Promise<ToDo | null> => {
   try {
     const response = await fetch('http://localhost:3000/api/toDos', {
       method: 'POST',
@@ -43,34 +31,49 @@ export const addToDoHandler = async (title: string, addToDo: AddToDoHandler): Pr
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      body: JSON.stringify({ title, completed: false, userId }),
+      body: JSON.stringify({ title, isDone, userId }),
     });
 
     if (!response.ok) {
       throw new Error((await response.json()).message || 'Failed to add todo');
     }
-    const { toDo } = await response.json();
 
-    if (!toDo?.title) {
-      console.error('🚨 API returned invalid title:', toDo);
-      return;
-    }
-
-    const newToDo = {
-      title: toDo.title,
-      isDone: toDo.completed,
-      id: toDo._id,
-    };
-    addToDo(newToDo);
-
-    return newToDo;
+    console.log(response.json());
+    return await response.json();
   } catch (error) {
     console.error('🚨 Error adding todo:', error);
+    return null;
   }
 };
 
-const toggleToDoHandler = async (toDoId: string, isDone: boolean, setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>) => {}
+const toggleToDoHandler = async (
+  toDoId: string,
+  isDone: boolean,
+  setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>
+) => {};
 
-const editToDoHandler = async (toDoId: string, newText: string, setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>) => {}
+const editToDoHandler = async (
+  toDoId: string,
+  newText: string,
+  setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>
+) => {};
 
-const removeToDoHandler = async (toDoId: string, setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>) => {}
+export const removeToDoHandler = async (toDoId: string) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/toDos/${toDoId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error((await response.json()).message || 'Failed to remove todo');
+    }
+    return await response.json();
+
+  } catch (error) {
+    console.error('🚨 Error removing todo:', error);
+  }
+};

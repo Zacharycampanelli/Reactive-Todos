@@ -3,7 +3,6 @@ import { useTodo } from '../context/ToDoContext';
 import { v4 as uuidv4 } from 'uuid';
 import { Checkbox, Field, Input } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import { addToDoHandler } from '../../utils/toDos';
 
 const ToDoForm: FC = () => {
   const { addTodo } = useTodo();
@@ -11,24 +10,28 @@ const ToDoForm: FC = () => {
 
   const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-        e.preventDefault();
+      e.preventDefault();
 
-        const taskText = (e.target as HTMLInputElement).value.trim();
-        if (!taskText) return;
+      const taskText = (e.target as HTMLInputElement).value.trim();
+      if (!taskText) return;
 
-        console.log("✅ Adding todo:", taskText);
+      console.log('✅ Adding todo:', taskText);
+      const toDoData = {
+        title: taskText,
+        isDone: false,
+        id: null,
+      }
+      const newTodo = await addTodo(toDoData);
 
-        const newTodo = await addToDoHandler(taskText, addTodo);
-
-        if (newTodo) {
-            console.log("✅ Todo added successfully:", newTodo);
-            setTask('');
-            (e.target as HTMLInputElement).value = ''; // Clear input
-        } else {
-            console.error("🚨 Failed to add todo");
-        }
+      if (newTodo) {
+        console.log('✅ Todo added successfully:', newTodo);
+        setTask('');
+        (e.target as HTMLInputElement).value = ''; // Clear input
+      } else {
+        console.error('🚨 Failed to add todo');
+      }
     }
-};
+  };
 
   return (
     <Field className="relative grid w-full items-center mb-6">

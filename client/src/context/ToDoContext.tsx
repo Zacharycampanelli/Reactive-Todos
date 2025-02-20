@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { initialToDos, addToDoHandler } from '../../utils/toDos';
+import { initialToDos, addToDoHandler, removeToDoHandler } from '../../utils/toDos';
 
 export type Todo = {
   title: string;
@@ -13,7 +13,7 @@ type TodoContextType = {
   setTodos?: React.Dispatch<React.SetStateAction<Todo[]>>;
   setInitialTodos: ({ initialToDos }: { initialToDos: Array<Todo> }) => void;
   toggleTodo: (todoid: string, isDone: boolean) => void;
-  addTodo: (todoTitle: string) => void;
+  addTodo: (todo: Todo  ) => Todo | null;
   editTodo: (todoid: string, newText: string) => void;
   removeTodo: (todoid: string) => void;
   clearCompleted: () => void;
@@ -27,11 +27,21 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const getInitialTodos = async () => {
       const storedTodos = await initialToDos();
-      console.log(storedTodos);
-      if (storedTodos) setTodos(storedTodos.map((todo) => ({ title: todo.title, isDone: todo.isDone, id: todo.id })));
+      console.log("🔍 Fetched Todos:", storedTodos);
+  
+      if (!storedTodos || !Array.isArray(storedTodos)) {
+        console.error("🚨 Todos not in correct format:", storedTodos);
+        return;
+      }
+  
+      setTodos(storedTodos.map(todo => ({
+        title: todo.title,
+        isDone: todo.isDone,
+        id: todo._id,  // ✅ Ensure `_id` is used as `id`
+      })));
     };
+  
     getInitialTodos();
-    console.log(todos);
   }, []);
 
   const setInitialTodos = (initialTodos: Array<Todo>) => {
@@ -41,15 +51,19 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addTodo = (todo: { title: string; isDone: boolean; id: string }) => {
-    if (typeof todo.title !== 'string') {
-      console.error('🚨 Received invalid title:', todo.title);
+    if (!todo.title) {
+      console.error('🚨 Title is required');
       return;
     }
 
-    setTodos((prevTodos) => {
-      const newTodos = [...prevTodos, todo];
-      return newTodos;
-    });
+    try {
+      const newTodo = addToDoHandler(todo.title, todo.isDone, todo.id);
+      if (!newTodo) return;
+console.log(newTodo)
+      setTodos((prevTodos) => [...prevTodos, todo]);
+    } catch (error) {
+      console.error('🚨 Error adding todo:', error);
+    }
   };
 
   const editTodo = (todoid: string, newText: string) => {
@@ -68,6 +82,10 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeTodo = (todoid: string) => {
+    if(!todoid) return;
+    
+    const removedTodo = removeToDoHandler(todoid);
+    if (!removedTodo) return;
     setTodos((prevTodos) => {
       return prevTodos.filter((todo) => todo.id !== todoid);
     });

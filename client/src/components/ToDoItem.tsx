@@ -47,6 +47,7 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
         // onKeyDown={handleEnter}
         // onClick={() => setIsEditable(true)}
       />
+          <button onClick={() => console.log("✅ Todo ID:", toDo?.id)}>Show ID</button>
 
       <Checkbox
         checked={toDo?.isDone}
