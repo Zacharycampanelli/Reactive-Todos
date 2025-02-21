@@ -48,15 +48,15 @@ export const addToDo = async (req: any, res: any) => {
 
 export const updateToDo = async (req: any, res: any) => {
   try {
-    const { title, completed } = req.body;
+    const { newText, completed } = req.body;
     const toDo = await ToDo.findById(req.params.id);
 
     if (!toDo) {
       return res.status(404).json({ message: 'To Do not found' });
     }
 
-    if (title) {
-      toDo.title = title;
+    if (newText !== undefined) {
+      toDo.title = newText;
     }
 
     if (completed !== undefined) {

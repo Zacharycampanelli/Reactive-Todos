@@ -46,17 +46,18 @@ export const addToDoHandler = async (title: string, isDone: boolean, userId: str
   }
 };
 
-const toggleToDoHandler = async (
-  toDoId: string,
-  isDone: boolean,
-  setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>
-) => {};
 
 const editToDoHandler = async (
-  toDoId: string,
-  newText: string,
-  setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>
-) => {};
+    toDoId: string,
+    setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>,
+    newText?: string,
+    completed?: boolean
+) => {
+    const updateBody = {
+        newText,
+        completed,
+    };
+};
 
 export const removeToDoHandler = async (toDoId: string) => {
   try {
