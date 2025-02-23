@@ -61,7 +61,9 @@ export const fetchUserData = async () => {
 
     if (!response.ok) throw new Error('Failed to fetch user data');
 
-    return await response.json();
+    const data = await response.json();
+    console.log(data)
+    return data
   } catch (error) {
     console.error('Error fetching user data:', error);
     return null;

@@ -47,7 +47,7 @@ export const addToDoHandler = async (title: string, isDone: boolean, userId: str
 };
 
 
-const editToDoHandler = async (
+export const editToDoHandler = async (
     toDoId: string,
     setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>,
     newText?: string,
@@ -57,6 +57,37 @@ const editToDoHandler = async (
         newText,
         completed,
     };
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/toDos/${toDoId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(updateBody),
+        });
+
+        if (!response.ok) {
+            throw new Error((await response.json()).message || 'Failed to update todo');
+        }
+
+        const updatedToDo = await response.json();
+        setTodos((prevTodos) => {
+            return prevTodos.map((todo) => {
+                if (todo.id === toDoId) {
+                    return {
+                        ...todo,
+                        title: updatedToDo.title,
+                        isDone: updatedToDo.isDone,
+                    };
+                }
+                return todo;
+            });
+        });
+    } catch (error) {
+        console.error('🚨 Error updating todo:', error);
+    }
 };
 
 export const removeToDoHandler = async (toDoId: string) => {

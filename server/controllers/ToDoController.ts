@@ -1,6 +1,7 @@
 import { ToDo, User } from '../models';
 
 export const getTodosByUser = async (req: any, res: any) => {
+   
   try {
     const todos = await ToDo.find({ userId: req.user._id });
     res.status(200).json({ message: 'To Dos retrieved successfully', todos });
@@ -29,6 +30,7 @@ export const addToDo = async (req: any, res: any) => {
   try {
     const { title, completed, userId } = req.body;
 
+    console.log(title, completed, userId);
     if (!title || typeof title !== 'string') {
       return res.status(400).json({ message: 'Title must be a string' });
     }
@@ -49,6 +51,9 @@ export const addToDo = async (req: any, res: any) => {
 export const updateToDo = async (req: any, res: any) => {
   try {
     const { newText, completed } = req.body;
+    if (!newText && completed === undefined) {
+      throw res.status(400).json({ message: 'No changes to make' });
+    }
     const toDo = await ToDo.findById(req.params.id);
 
     if (!toDo) {

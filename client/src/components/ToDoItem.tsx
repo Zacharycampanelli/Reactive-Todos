@@ -51,7 +51,7 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
 
       <Checkbox
         checked={toDo?.isDone}
-        onChange={handleFinishedTask}
+        onChange={() => toDo?.title && editTodo(toDo?.id, toDo?.title)}
         className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white 
         data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask data-[checked]:border-none hover:border-gradientStart hover:cursor-pointer`}
       >
