@@ -1,28 +1,20 @@
 import { FC } from 'react';
-import { Button, Checkbox, Field, Input } from '@headlessui/react';
+import { Button, Checkbox, Input } from '@headlessui/react';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Todo, useTodo } from '../context/ToDoContext';
-import { Bars3Icon } from '@heroicons/react/24/solid';
-
 interface ToDoItemProps {
-  toDo?: Todo;
+  toDo: Todo;
 }
 
 const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
-  const { toggleTodo, editTodo, removeTodo } = useTodo();
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: toDo.id });
+  const { editTodo, removeTodo } = useTodo();
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: toDo?.id ?? 'default-id' });
+
+  if (!toDo) return null;
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
-
-  const handleFinishedTask = () => {
-    if (toDo) {
-      // setIsDone(!isDone);
-
-      toggleTodo(toDo.id, toDo.isDone);
-    }
-  };
 
   return (
     <div
@@ -34,24 +26,19 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
     >
       <Input
         className={`bg-taskBox  pl-[52px] first:rounded-xl first:border-solid first:border-white first:border-1  p-5 text-activeTask  ${
-          toDo?.isDone ? 'line-through decoration-activeTask decoration-finishedTask text-finishedTask' : ''
+          toDo?.completed ? 'line-through decoration-activeTask decoration-finishedTask text-finishedTask' : ''
         } focus:outline-none hover:cursor-pointer`}
         name="todo_item"
         type="text"
-        defaultValue={toDo?.title}
-        // onChange={(e) => setTask(e.target.value)}
-        onChange={(e) => {
-          e.stopPropagation();
-          editTodo(toDo?.id, e.target.value);
+        defaultValue={toDo?.title ?? ''}
+        onBlur={(e) => {
+          editTodo(toDo?.id, e.target.value, undefined);
         }}
-        // onKeyDown={handleEnter}
-        // onClick={() => setIsEditable(true)}
       />
-          <button onClick={() => console.log("✅ Todo ID:", toDo?.id)}>Show ID</button>
 
       <Checkbox
-        checked={toDo?.isDone}
-        onChange={() => toDo?.title && editTodo(toDo?.id, toDo?.title)}
+        checked={toDo?.completed}
+        onChange={() => editTodo(toDo?.id, undefined, toDo?.completed)}
         className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white 
         data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask data-[checked]:border-none hover:border-gradientStart hover:cursor-pointer`}
       >

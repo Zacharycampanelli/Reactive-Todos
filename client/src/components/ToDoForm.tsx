@@ -1,12 +1,10 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useTodo } from '../context/ToDoContext';
-import { v4 as uuidv4 } from 'uuid';
 import { Checkbox, Field, Input } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 
 const ToDoForm: FC = () => {
   const { addTodo } = useTodo();
-  const [task, setTask] = useState('');
 
   const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -15,17 +13,14 @@ const ToDoForm: FC = () => {
       const taskText = (e.target as HTMLInputElement).value.trim();
       if (!taskText) return;
 
-      console.log('✅ Adding todo:', taskText);
       const toDoData = {
         title: taskText,
-        isDone: false,
-        id: null,
-      }
+        completed: false,
+        id: '',
+      };
       const newTodo = await addTodo(toDoData);
 
       if (newTodo) {
-        console.log('✅ Todo added successfully:', newTodo);
-        setTask('');
         (e.target as HTMLInputElement).value = ''; // Clear input
       } else {
         console.error('🚨 Failed to add todo');

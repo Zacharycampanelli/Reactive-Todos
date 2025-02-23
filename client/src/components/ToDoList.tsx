@@ -6,7 +6,6 @@ import ToDoItem from './ToDoItem';
 import { SELECT_OPTIONS } from './ToDoContainer';
 import { useMediaQuery } from 'usehooks-ts';
 import SelectList from './SelectList';
-import { useAuthContext } from '../context/AuthContext';
 interface ToDoListProps {
   viewedTodos: string;
   setViewedTodos: Dispatch<SetStateAction<SELECT_OPTIONS>>;
@@ -16,26 +15,21 @@ const ToDoList: FC<ToDoListProps> = ({ viewedTodos, setViewedTodos }) => {
   const { todos, clearCompleted } = useTodo();
   const [todosLeft, setTodosLeft] = useState<number>(todos.length);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const { user } = useAuthContext();
 
   const filteredTodos = useMemo(() => {
     switch (viewedTodos) {
       case SELECT_OPTIONS.Completed:
-        return todos.filter((todo) => todo.isDone);
+        return todos.filter((todo) => todo.completed);
       case SELECT_OPTIONS.Active:
-        return todos.filter((todo) => !todo.isDone);
+        return todos.filter((todo) => !todo.completed);
       default:
         return todos;
     }
   }, [viewedTodos, todos]);
 
   useEffect(() => {
-    setTodosLeft(todos.filter((todo) => !todo.isDone).length);
+    setTodosLeft(todos.filter((todo) => !todo.completed).length);
   }, [todos]);
-
-  // useEffect(() => {
-  //   setInitialTodos(initialToDos);
-  // }, [user]);
 
   return (
     <SortableContext items={filteredTodos.map((todo) => todo.id)} strategy={verticalListSortingStrategy}>

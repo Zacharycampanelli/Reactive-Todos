@@ -24,7 +24,7 @@ export const login = async (req: any, res: any) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }).select('+password');
-console.log(req.user)
+
     if (!user) {
       return res.status(400).json({ message: 'User does not exist' });
     }
@@ -76,7 +76,6 @@ export const forgottenPassword = async (req: any, res: any) => {
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.log(error.message);
         return res.status(500).json({ message: error.message });
       }
       res.status(200).json({ message: `Email sent to ${user.email}` });
@@ -116,7 +115,7 @@ export const resetPassword = async (req: any, res: any) => {
 
 export const getUser = async (req: any, res: any) => {
   try {
-    const user = await User.findById(req.user._id).select('-password');
+    const user = await User.findById(req.user._id).select('-password').populate('toDos');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

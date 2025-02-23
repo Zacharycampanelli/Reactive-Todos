@@ -11,7 +11,7 @@ export const handleLogin = async (email, password, setMessage, login) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data.message);
 
-    login(data.user, data.token); 
+    login(data.user, data.token);
     setMessage('Login successful!');
   } catch (error) {
     setMessage(error.message);
@@ -30,9 +30,8 @@ export const handleRegister = async (name, email, password, setMessage, login) =
 
     const data = await response.json();
 
-    if(!response.ok) throw new Error(data.message || 'Failed to register');
-    
-    
+    if (!response.ok) throw new Error(data.message || 'Failed to register');
+
     login(data.user, data.token);
     setMessage(data.message);
     window.location.href = '/';
@@ -45,7 +44,6 @@ export const fetchUserData = async () => {
   const token = localStorage.getItem('token');
 
   if (!token || token === 'null') {
-    // ✅ Avoid making an API request if token is missing
     console.error('🚨 No valid token found in localStorage');
     return null;
   }
@@ -62,8 +60,8 @@ export const fetchUserData = async () => {
     if (!response.ok) throw new Error('Failed to fetch user data');
 
     const data = await response.json();
-    console.log(data)
-    return data
+
+    return data;
   } catch (error) {
     console.error('Error fetching user data:', error);
     return null;

@@ -37,15 +37,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (userData: User, token: string) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData)); 
-    localStorage.setItem('token', token); 
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', token);
   };
 
   const logout = () => {
-    setUser(null); 
+    setUser(null);
     localStorage.removeItem('user');
-    localStorage.removeItem('token'); 
-    window.location.href = '/'; 
+    localStorage.removeItem('token');
+    window.location.href = '/';
   };
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;

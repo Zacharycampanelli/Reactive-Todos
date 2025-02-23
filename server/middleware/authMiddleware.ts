@@ -12,11 +12,9 @@ export const authenticateUser = async (req: UserRequest, res: Response, next: Ne
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      console.log("🔍 Received Token:", token);
 
       // Decode token
       const decoded: any = jwt.verify(token, process.env.JWT_SECRET as string);
-      console.log("✅ Token Decoded:", decoded);
 
       // Find user in database
       req.user = await User.findById(decoded._id).select('-password');
