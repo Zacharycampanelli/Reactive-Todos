@@ -1,22 +1,18 @@
-import { FC, useState } from 'react';
-import { Button, Field, Input, Label } from '@headlessui/react';
-import { useTheme } from '../context/ThemeContext';
-import { handleRegister } from '../../utils/auth';
-import { useAuthContext } from '../context/AuthContext';
+import { FC, useState } from "react";
+import { Button, Field, Input, Label } from "@headlessui/react";
+import { useTheme } from "../context/ThemeContext";
+import { handleRegister } from "../../utils/auth";
+import { useAuthContext } from "../context/AuthContext";
 
-interface RegisterModalBodyProps {
-  onClose: () => void;
-}
-
-const RegisterModalBody: FC<RegisterModalBodyProps> = ({ onClose }) => {
+const RegisterModalBody: FC = () => {
   const { theme } = useTheme();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-const { login } = useAuthContext();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const { login } = useAuthContext();
 
-  const registerHandler = (e) => {
+  const registerHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleRegister(name, email, password, setMessage, login);
   };
@@ -25,7 +21,9 @@ const { login } = useAuthContext();
     <>
       <form className="space-y-4" onSubmit={registerHandler}>
         <Field>
-          <Label className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} block text-sm font-medium mb-2`}>
+          <Label
+            className={`${theme === "light" ? "text-gray-700" : "text-gray-300"} mb-2 block text-sm font-medium`}
+          >
             Name:
           </Label>
           <Input
@@ -33,14 +31,17 @@ const { login } = useAuthContext();
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
             className={`${
-              theme === 'light' ? 'bg-white border-gray-300 text-gray-900' : 'bg-gray-700 border-gray-600 text-white'
-            }
-                      w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900"
+                : "border-gray-600 bg-gray-700 text-white"
+            } w-full rounded-md border p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
             required
           />
         </Field>
         <Field>
-          <Label className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} block text-sm font-medium mb-2`}>
+          <Label
+            className={`${theme === "light" ? "text-gray-700" : "text-gray-300"} mb-2 block text-sm font-medium`}
+          >
             Email:
           </Label>
           <Input
@@ -48,14 +49,17 @@ const { login } = useAuthContext();
             placeholder="Email Address"
             onChange={(e) => setEmail(e.target.value)}
             className={`${
-              theme === 'light' ? 'bg-white border-gray-300 text-gray-900' : 'bg-gray-700 border-gray-600 text-white'
-            }
-                      w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900"
+                : "border-gray-600 bg-gray-700 text-white"
+            } w-full rounded-md border p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
             required
           />
         </Field>
         <Field>
-          <Label className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} block text-sm font-medium mb-2`}>
+          <Label
+            className={`${theme === "light" ? "text-gray-700" : "text-gray-300"} mb-2 block text-sm font-medium`}
+          >
             Password:
           </Label>
           <Input
@@ -63,15 +67,16 @@ const { login } = useAuthContext();
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             className={`${
-              theme === 'light' ? 'bg-white border-gray-300 text-gray-900' : 'bg-gray-700 border-gray-600 text-white'
-            }
-                      w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900"
+                : "border-gray-600 bg-gray-700 text-white"
+            } w-full rounded-md border p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
             required
           />
         </Field>
         <Button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-md transition"
+          className="w-full rounded-md bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700"
         >
           Sign Up
         </Button>

@@ -1,6 +1,17 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { initialToDos, addToDoHandler, removeToDoHandler, editToDoHandler } from '../../utils/toDos';
-import { useAuthContext } from './AuthContext';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import {
+  initialToDos,
+  addToDoHandler,
+  removeToDoHandler,
+  editToDoHandler,
+} from "../../utils/toDos";
+import { useAuthContext } from "./AuthContext";
 
 export type Todo = {
   title: string;
@@ -12,7 +23,11 @@ type TodoContextType = {
   todos: Array<Todo>;
   setTodos?: React.Dispatch<React.SetStateAction<Todo[]>>;
   addTodo: (todo: Todo) => Promise<Todo | undefined>;
-  editTodo: (todoid: string, newText: string | undefined, completed: boolean | undefined) => void;
+  editTodo: (
+    todoid: string,
+    newText: string | undefined,
+    completed: boolean | undefined,
+  ) => void;
   removeTodo: (todoid: string) => void;
   clearCompleted: () => void;
 };
@@ -24,7 +39,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuthContext();
   useEffect(() => {
     if (!user) {
-      console.error('🚨 User not found');
+      console.error("🚨 User not found");
       return;
     }
 
@@ -32,7 +47,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       const storedTodos = await initialToDos();
 
       if (!storedTodos || !Array.isArray(storedTodos)) {
-        console.error('🚨 Todos not in correct format:', storedTodos);
+        console.error("🚨 Todos not in correct format:", storedTodos);
         return;
       }
 
@@ -41,16 +56,20 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
           title: todo.title,
           completed: todo.completed,
           id: todo._id,
-        }))
+        })),
       );
     };
 
     getInitialTodos();
   }, [user]);
 
-  const addTodo = async (todo: { title: string; completed: boolean; id: string }) => {
+  const addTodo = async (todo: {
+    title: string;
+    completed: boolean;
+    id: string;
+  }) => {
     if (!todo.title) {
-      console.error('🚨 Title is required');
+      console.error("🚨 Title is required");
       return;
     }
 
@@ -61,11 +80,15 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       setTodos((prevTodos) => [...prevTodos, todo]);
       return newTodo;
     } catch (error) {
-      console.error('🚨 Error adding todo:', error);
+      console.error("🚨 Error adding todo:", error);
     }
   };
 
-  const editTodo = async (todoid: string, newText?: string, completed?: boolean) => {
+  const editTodo = async (
+    todoid: string,
+    newText?: string,
+    completed?: boolean,
+  ) => {
     try {
       if (completed !== undefined) {
         completed = !completed;
@@ -78,13 +101,17 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       setTodos((prevTodos) => {
         return prevTodos.map((todo) => {
           if (todo.id === todoid) {
-            return { ...todo, title: newText ?? todo.title, completed: completed ?? todo.completed };
+            return {
+              ...todo,
+              title: newText ?? todo.title,
+              completed: completed ?? todo.completed,
+            };
           }
           return todo;
         });
       });
     } catch (error) {
-      console.error('🚨 Error updating todo:', error);
+      console.error("🚨 Error updating todo:", error);
     }
   };
 
@@ -121,7 +148,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
 const useTodo = (): TodoContextType => {
   const context = useContext(TodoContext);
   if (!context) {
-    throw new Error('useTodo must be used within a TodoProvider');
+    throw new Error("useTodo must be used within a TodoProvider");
   }
   return context;
 };

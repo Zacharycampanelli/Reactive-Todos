@@ -1,19 +1,22 @@
-import { Dispatch, FC, SetStateAction, useContext } from 'react';
-import { Button } from '@headlessui/react';
-import { AuthContext } from '../context/AuthContext';
+import { Dispatch, FC, SetStateAction, useContext } from "react";
+import { Button } from "@headlessui/react";
+import { AuthContext } from "../context/AuthContext";
 
 interface ModalType {
-    modalType: 'signin' | 'register';
+  modalType: "signin" | "register";
 }
 
 interface UserLinksProps {
   isAuthModalOpen: boolean;
-    toggleAuthModal: () => void;
-    setModalType: Dispatch<SetStateAction<"login" | "register">>
+  toggleAuthModal: () => void;
+  setModalType: Dispatch<SetStateAction<"login" | "register">>;
 }
 
-
-const UserLinks:FC<UserLinksProps> = ({isAuthModalOpen, toggleAuthModal, setModalType}) => {
+const UserLinks: FC<UserLinksProps> = ({
+  isAuthModalOpen,
+  toggleAuthModal,
+  setModalType,
+}) => {
   const authContext = useContext(AuthContext);
   if (!authContext) {
     return null;
@@ -23,17 +26,37 @@ const UserLinks:FC<UserLinksProps> = ({isAuthModalOpen, toggleAuthModal, setModa
     return;
   }
 
-  const capitalize = (str: string) => { return str.charAt(0).toUpperCase() + str.slice(1); }
-     
+  const capitalize = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
-    <div className="absolute z-10 flex space-x-4 text-white top-4 right-8 text-sm">
-      {user ? (<>
-      <span>Welcome, {capitalize(user.name)}</span>
-      <Button onClick={logout}>Logout</Button>
-      </>) : (<>
-      <Button onClick={() => {toggleAuthModal(); setModalType('login')}}>Log In</Button>
-      <Button onClick={() => {toggleAuthModal(); setModalType('register')}}>Register</Button>
-      </>)}     
+    <div className="absolute right-8 top-4 z-10 flex space-x-4 text-sm text-white">
+      {user ? (
+        <>
+          <span>Welcome, {capitalize(user.name)}</span>
+          <Button onClick={logout}>Logout</Button>
+        </>
+      ) : (
+        <>
+          <Button
+            onClick={() => {
+              toggleAuthModal();
+              setModalType("login");
+            }}
+          >
+            Log In
+          </Button>
+          <Button
+            onClick={() => {
+              toggleAuthModal();
+              setModalType("register");
+            }}
+          >
+            Register
+          </Button>
+        </>
+      )}
     </div>
   );
 };

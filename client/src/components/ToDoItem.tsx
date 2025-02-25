@@ -1,16 +1,17 @@
-import { FC } from 'react';
-import { Button, Checkbox, Input } from '@headlessui/react';
-import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { Todo, useTodo } from '../context/ToDoContext';
+import { FC } from "react";
+import { Button, Checkbox, Input } from "@headlessui/react";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { Todo, useTodo } from "../context/ToDoContext";
 interface ToDoItemProps {
   toDo: Todo;
 }
 
 const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
   const { editTodo, removeTodo } = useTodo();
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: toDo?.id ?? 'default-id' });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: toDo?.id ?? "default-id" });
 
   if (!toDo) return null;
 
@@ -22,15 +23,17 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
       {...attributes}
       {...listeners}
       style={style}
-      className="relative grid w-full items-center not-last:border-b-[1px] border-solid border-dividerCircle tou"
+      className="not-last:border-b-[1px] border-dividerCircle tou relative grid w-full items-center border-solid"
     >
       <Input
-        className={`bg-taskBox  pl-[52px] first:rounded-xl first:border-solid first:border-white first:border-1  p-5 text-activeTask  ${
-          toDo?.completed ? 'line-through decoration-activeTask decoration-finishedTask text-finishedTask' : ''
-        } focus:outline-none hover:cursor-pointer`}
+        className={`bg-taskBox first:border-1 text-activeTask p-5 pl-[52px] first:rounded-xl first:border-solid first:border-white ${
+          toDo?.completed
+            ? "decoration-activeTask decoration-finishedTask text-finishedTask line-through"
+            : ""
+        } hover:cursor-pointer focus:outline-none`}
         name="todo_item"
         type="text"
-        defaultValue={toDo?.title ?? ''}
+        defaultValue={toDo?.title ?? ""}
         onBlur={(e) => {
           editTodo(toDo?.id, e.target.value, undefined);
         }}
@@ -39,14 +42,16 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
       <Checkbox
         checked={toDo?.completed}
         onChange={() => editTodo(toDo?.id, undefined, toDo?.completed)}
-        className={`absolute left-5 group block rounded-[50%] border-[1px] border-circle size-5 bg-white 
-        data-[checked]:bg-gradient-to-br from-gradientStart to-gradientEnd text-finishedTask data-[checked]:border-none hover:border-gradientStart hover:cursor-pointer`}
+        className={`border-circle from-gradientStart to-gradientEnd text-finishedTask hover:border-gradientStart group absolute left-5 block size-5 rounded-[50%] border-[1px] bg-white hover:cursor-pointer data-[checked]:border-none data-[checked]:bg-gradient-to-br`}
       >
-        <CheckIcon className="w-4 h-4  stroke-white stroke-[4px] z-30 mx-auto my-auto pt-1" />
+        <CheckIcon className="z-30 mx-auto my-auto h-4 w-4 stroke-white stroke-[4px] pt-1" />
       </Checkbox>
 
-      <Button className={`absolute right-5`} onClick={() => removeTodo(toDo.id)}>
-        <XMarkIcon className="w-4 h-4 stroke-activeTask stroke-[3px] z-30 mx-auto my-auto pt-1 hover:cursor-pointer" />
+      <Button
+        className={`absolute right-5`}
+        onClick={() => removeTodo(toDo.id)}
+      >
+        <XMarkIcon className="stroke-activeTask z-30 mx-auto my-auto h-4 w-4 stroke-[3px] pt-1 hover:cursor-pointer" />
       </Button>
     </div>
   );

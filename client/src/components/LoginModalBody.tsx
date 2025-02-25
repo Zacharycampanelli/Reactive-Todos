@@ -1,31 +1,40 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
-import { Button, Field, Input, Label } from '@headlessui/react';
-import { useTheme } from '../context/ThemeContext';
-import { useAuthContext } from '../context/AuthContext';
-import { handleLogin } from '../../utils/auth';
+import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Button, Field, Input, Label } from "@headlessui/react";
+import { useTheme } from "../context/ThemeContext";
+import { useAuthContext } from "../context/AuthContext";
+import { handleLogin } from "../../utils/auth";
 
 interface LoginModalBodyProps {
   setResetModalOpen: Dispatch<SetStateAction<boolean>>;
   onClose: () => void;
 }
 
-const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose }) => {
+const LoginModalBody: FC<LoginModalBodyProps> = ({
+  setResetModalOpen,
+  onClose,
+}) => {
   const { theme } = useTheme();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const { login } = useAuthContext();
 
-  const loginHandler = async (e) => {
+  const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await handleLogin(email, password, setMessage, login);
+    const user = await handleLogin(email, password, setMessage, login);
+
+    if (user) {
+      onClose();
+    }
   };
 
   return (
     <>
       <form className="space-y-4" onSubmit={loginHandler}>
         <Field>
-          <Label className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} block text-sm font-medium mb-2`}>
+          <Label
+            className={`${theme === "light" ? "text-gray-700" : "text-gray-300"} mb-2 block text-sm font-medium`}
+          >
             Email Address
           </Label>
           <Input
@@ -33,13 +42,16 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
             placeholder="Email Address"
             onChange={(e) => setEmail(e.target.value)}
             className={`${
-              theme === 'light' ? 'bg-white border-gray-300 text-gray-900' : 'bg-gray-700 border-gray-600 text-white'
-            }
-                      w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900"
+                : "border-gray-600 bg-gray-700 text-white"
+            } w-full rounded-md border p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
         </Field>
         <Field>
-          <Label className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} block text-sm font-medium mb-2`}>
+          <Label
+            className={`${theme === "light" ? "text-gray-700" : "text-gray-300"} mb-2 block text-sm font-medium`}
+          >
             Password
           </Label>
           <Input
@@ -47,9 +59,10 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             className={`${
-              theme === 'light' ? 'bg-white border-gray-300 text-gray-900' : 'bg-gray-700 border-gray-600 text-white'
-            }
-                      w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              theme === "light"
+                ? "border-gray-300 bg-white text-gray-900"
+                : "border-gray-600 bg-gray-700 text-white"
+            } w-full rounded-md border p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
           />
         </Field>
         <Field className="flex items-center justify-between">
@@ -58,7 +71,7 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
               setResetModalOpen(true);
               onClose();
             }}
-            className={`${theme === 'light' ? 'text-blue-600' : 'text-blue-400'} hover:underline transition`}
+            className={`${theme === "light" ? "text-blue-600" : "text-blue-400"} transition hover:underline`}
           >
             Forgot your password? Click here
           </Button>
@@ -66,7 +79,7 @@ const LoginModalBody: FC<LoginModalBodyProps> = ({ setResetModalOpen, onClose })
 
         <Button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition"
+          className="w-full rounded-md bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
         >
           Log In
         </Button>

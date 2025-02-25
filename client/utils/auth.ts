@@ -1,9 +1,14 @@
-export const handleLogin = async (email, password, setMessage, login) => {
+export const handleLogin = async (
+  email: string,
+  password: string,
+  setMessage: (message: string) => void,
+  login: (user: any, token: string) => void,
+) => {
   try {
-    const response = await fetch('http://localhost:3000/api/users/login', {
-      method: 'POST',
+    const response = await fetch("http://localhost:3000/api/users/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
@@ -12,58 +17,69 @@ export const handleLogin = async (email, password, setMessage, login) => {
     if (!response.ok) throw new Error(data.message);
 
     login(data.user, data.token);
-    setMessage('Login successful!');
+    setMessage("Login successful!");
+    return data.user;
   } catch (error) {
-    setMessage(error.message);
+    if (error instanceof Error) {
+      setMessage(error.message);
+    } else {
+      setMessage("An unknown error occurred.");
+    }
   }
 };
 
-export const handleRegister = async (name, email, password, setMessage, login) => {
+export const handleRegister = async (
+  name: string,
+  email: string,
+  password: string,
+  setMessage: (message: string) => void,
+  login: (user: any, token: string) => void,
+) => {
   try {
-    const response = await fetch('http://localhost:3000/api/users/', {
-      method: 'POST',
+    const response = await fetch("http://localhost:3000/api/users/", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ name, email, password }),
     });
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || 'Failed to register');
+    if (!response.ok) throw new Error(data.message || "Failed to register");
 
     login(data.user, data.token);
     setMessage(data.message);
-    window.location.href = '/';
+    window.location.href = "/";
   } catch (error) {
-    setMessage('Something went wrong. Try again.');
+    setMessage("Something went wrong. Try again.");
   }
 };
 
 export const fetchUserData = async () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
-  if (!token || token === 'null') {
-    console.error('🚨 No valid token found in localStorage');
+  if (!token || token === "null") {
+    console.error("🚨 No valid token found in localStorage");
     return null;
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/users/user', {
-      method: 'GET',
+    const response = await fetch("http://localhost:3000/api/users/user", {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (!response.ok) throw new Error('Failed to fetch user data');
+    if (!response.ok) throw new Error("Failed to fetch user data");
 
     const data = await response.json();
 
     return data;
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error("Error fetching user data:", error);
     return null;
   }
 };

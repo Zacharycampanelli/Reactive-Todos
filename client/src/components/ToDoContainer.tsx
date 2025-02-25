@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState } from "react";
 import {
   closestCorners,
   DndContext,
@@ -7,28 +7,30 @@ import {
   TouchSensor,
   useSensor,
   useSensors,
-} from '@dnd-kit/core';
-import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { useTheme } from '../context/ThemeContext';
-import { useTodo } from '../context/ToDoContext';
-import ToDoList from './ToDoList';
-import ToDoForm from './ToDoForm';
-import SelectList from './SelectList';
-import sun from '../assets/images/icon-sun.svg';
-import moon from '../assets/images/icon-moon.svg';
-import { useMediaQuery } from 'usehooks-ts';
+} from "@dnd-kit/core";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { useTheme } from "../context/ThemeContext";
+import { useTodo } from "../context/ToDoContext";
+import ToDoList from "./ToDoList";
+import ToDoForm from "./ToDoForm";
+import SelectList from "./SelectList";
+import sun from "../assets/images/icon-sun.svg";
+import moon from "../assets/images/icon-moon.svg";
+import { useMediaQuery } from "usehooks-ts";
 
 export enum SELECT_OPTIONS {
-  All = 'All',
-  Active = 'Active',
-  Completed = 'Completed',
+  All = "All",
+  Active = "Active",
+  Completed = "Completed",
 }
 
 const ToDoContainer: FC = () => {
   const { theme, toggleTheme } = useTheme();
   const { todos, setTodos } = useTodo();
-  const [viewedTodos, setViewedTodos] = useState<SELECT_OPTIONS>(SELECT_OPTIONS.All);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [viewedTodos, setViewedTodos] = useState<SELECT_OPTIONS>(
+    SELECT_OPTIONS.All,
+  );
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const getTodoPos = (id) => todos.findIndex((todo) => todo.id === id);
 
@@ -49,21 +51,36 @@ const ToDoContainer: FC = () => {
     useSensor(TouchSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-      <div className={`${isMobile ? 'w-full' : 'w-[60%]'} flex flex-col items-center justify-center mx-auto`}>
-        <div className="w-full flex justify-between items-center pt-2 pb-8">
-          <h1 className="font-josefin text-[40px] text-white tracking-[15px] z-0">TODO</h1>
-          <img src={theme === 'light' ? moon : sun} alt="icon" onClick={toggleTheme} className="cursor-pointer z-10" />
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCorners}
+      onDragEnd={handleDragEnd}
+    >
+      <div
+        className={`${isMobile ? "w-full" : "w-[60%]"} mx-auto flex flex-col items-center justify-center`}
+      >
+        <div className="flex w-full items-center justify-between pb-8 pt-2">
+          <h1 className="font-josefin z-0 text-[40px] tracking-[15px] text-white">
+            TODO
+          </h1>
+          <img
+            src={theme === "light" ? moon : sun}
+            alt="icon"
+            onClick={toggleTheme}
+            className="z-10 cursor-pointer"
+          />
         </div>
         <ToDoForm />
         <ToDoList viewedTodos={viewedTodos} setViewedTodos={setViewedTodos} />
-        {isMobile ? <SelectList setViewedTodos={setViewedTodos} /> : ''}
+        {isMobile ? <SelectList setViewedTodos={setViewedTodos} /> : ""}
       </div>
-      <p className="text-sm text-primaryText text-center pt-12">Drag and drop to reorder list</p>
+      <p className="text-primaryText pt-12 text-center text-sm">
+        Drag and drop to reorder list
+      </p>
     </DndContext>
   );
 };

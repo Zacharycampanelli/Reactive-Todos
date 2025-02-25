@@ -4,4 +4,3 @@ import desktopDark from "./bg-desktop-dark.jpg";
 import desktopLight from "./bg-desktop-light.jpg";
 
 export { mobileLight, mobileDark, desktopLight, desktopDark };
-
