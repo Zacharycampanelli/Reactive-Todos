@@ -1,12 +1,13 @@
+import { FC } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { useTheme } from "../context/ThemeContext";
+
 import {
   desktopDark,
   desktopLight,
   mobileDark,
   mobileLight,
 } from "../assets/images/backgrounds";
-import { FC } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const Jumbotron: FC = () => {
   const { theme } = useTheme();

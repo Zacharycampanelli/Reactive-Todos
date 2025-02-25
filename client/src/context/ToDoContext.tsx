@@ -1,15 +1,16 @@
 import {
-  createContext,
   ReactNode,
+  createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
+
 import {
-  initialToDos,
   addToDoHandler,
-  removeToDoHandler,
   editToDoHandler,
+  initialToDos,
+  removeToDoHandler,
 } from "../../utils/toDos";
 import { useAuthContext } from "./AuthContext";
 

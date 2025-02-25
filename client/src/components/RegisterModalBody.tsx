@@ -1,8 +1,9 @@
-import { FC, useState } from "react";
 import { Button, Field, Input, Label } from "@headlessui/react";
-import { useTheme } from "../context/ThemeContext";
+import { FC, useState } from "react";
+
 import { handleRegister } from "../../utils/auth";
 import { useAuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const RegisterModalBody: FC = () => {
   const { theme } = useTheme();

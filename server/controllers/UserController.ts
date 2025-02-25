@@ -1,8 +1,9 @@
-import { User } from "../models";
-import { generateToken } from "../utils/jwtoken";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+
+import { User } from "../models";
+import { generateToken } from "../utils/jwtoken";
 
 export const register = async (req: any, res: any) => {
   try {

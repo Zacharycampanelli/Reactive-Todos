@@ -1,8 +1,9 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
 import { Button, Field, Input, Label } from "@headlessui/react";
-import { useTheme } from "../context/ThemeContext";
-import { useAuthContext } from "../context/AuthContext";
+import { Dispatch, FC, SetStateAction, useState } from "react";
+
 import { handleLogin } from "../../utils/auth";
+import { useAuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 interface LoginModalBodyProps {
   setResetModalOpen: Dispatch<SetStateAction<boolean>>;

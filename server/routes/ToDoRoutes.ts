@@ -1,9 +1,10 @@
 import express from "express";
+
 import {
-  getTodosByUser,
   addToDo,
   deleteToDo,
   getSingleTodo,
+  getTodosByUser,
   updateToDo,
 } from "../controllers/ToDoController";
 import { authenticateUser } from "../middleware/authMiddleware";

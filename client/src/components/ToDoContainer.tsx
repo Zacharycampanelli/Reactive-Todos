@@ -1,22 +1,23 @@
-import { FC, useState } from "react";
 import {
-  closestCorners,
   DndContext,
   KeyboardSensor,
   PointerSensor,
   TouchSensor,
+  closestCorners,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { FC, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
+
+import moon from "../assets/images/icon-moon.svg";
+import sun from "../assets/images/icon-sun.svg";
 import { useTheme } from "../context/ThemeContext";
 import { useTodo } from "../context/ToDoContext";
-import ToDoList from "./ToDoList";
-import ToDoForm from "./ToDoForm";
 import SelectList from "./SelectList";
-import sun from "../assets/images/icon-sun.svg";
-import moon from "../assets/images/icon-moon.svg";
-import { useMediaQuery } from "usehooks-ts";
+import ToDoForm from "./ToDoForm";
+import ToDoList from "./ToDoList";
 
 export enum SELECT_OPTIONS {
   All = "All",

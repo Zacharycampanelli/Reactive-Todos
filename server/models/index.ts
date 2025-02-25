@@ -1,4 +1,4 @@
-import User from "./User";
 import ToDo from "./ToDo";
+import User from "./User";
 
 export { User, ToDo };

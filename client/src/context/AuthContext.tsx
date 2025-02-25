@@ -1,10 +1,11 @@
 import {
-  createContext,
-  useState,
   ReactNode,
-  useEffect,
+  createContext,
   useContext,
+  useEffect,
+  useState,
 } from "react";
+
 import { fetchUserData } from "../../utils/auth";
 
 interface User {

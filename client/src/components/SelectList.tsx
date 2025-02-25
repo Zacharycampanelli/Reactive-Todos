@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
-import { SELECT_OPTIONS } from "./ToDoContainer";
 import { Button, Field } from "@headlessui/react";
-import { useTodo } from "../context/ToDoContext";
+import { FC, useState } from "react";
+
+import { SELECT_OPTIONS } from "./ToDoContainer";
 
 interface SelectListProps {
   setViewedTodos: (value: SELECT_OPTIONS) => void;

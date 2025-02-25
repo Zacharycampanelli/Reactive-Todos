@@ -1,9 +1,11 @@
-import { FC } from "react";
-import { Button, Checkbox, Input } from "@headlessui/react";
-import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Button, Checkbox, Input } from "@headlessui/react";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FC } from "react";
+
 import { Todo, useTodo } from "../context/ToDoContext";
+
 interface ToDoItemProps {
   toDo: Todo;
 }

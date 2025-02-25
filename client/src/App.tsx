@@ -1,14 +1,16 @@
-import { ThemeProvider } from "./context/ThemeContext";
+import { useEffect, useState } from "react";
+
+import AuthenticationModal from "./components/AuthenticationModal";
 import Jumbotron from "./components/Jumbotron";
-import ToDoContainer from "./components/ToDoContainer";
+import ResetModal from "./components/ResetModal";
 import ThemeContainer from "./components/ThemeContainer";
+import ToDoContainer from "./components/ToDoContainer";
+import UserLinks from "./components/UserLinks";
+import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import { TodoProvider } from "./context/ToDoContext";
 import "./index.css";
-import UserLinks from "./components/UserLinks";
-import { useEffect, useState } from "react";
-import AuthenticationModal from "./components/AuthenticationModal";
-import ResetModal from "./components/ResetModal";
-import { AuthProvider } from "./context/AuthContext";
+
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"login" | "register">("login");

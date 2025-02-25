@@ -1,5 +1,6 @@
-import { Dispatch, FC, SetStateAction, useContext } from "react";
 import { Button } from "@headlessui/react";
+import { Dispatch, FC, SetStateAction, useContext } from "react";
+
 import { AuthContext } from "../context/AuthContext";
 
 interface ModalType {

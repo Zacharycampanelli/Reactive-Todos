@@ -1,10 +1,11 @@
 import express from "express";
+
 import {
-  register,
-  login,
   forgottenPassword,
-  resetPassword,
   getUser,
+  login,
+  register,
+  resetPassword,
 } from "../controllers/UserController";
 import { authenticateUser } from "../middleware/authMiddleware";
 

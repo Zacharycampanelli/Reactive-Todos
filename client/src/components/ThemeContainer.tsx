@@ -1,5 +1,6 @@
-import { useTheme } from "../context/ThemeContext";
 import { FC, ReactNode } from "react";
+
+import { useTheme } from "../context/ThemeContext";
 
 interface ThemeContainerProps {
   children: ReactNode;
