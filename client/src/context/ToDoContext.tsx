@@ -130,6 +130,15 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
   };
 
+  const sortToDos = () => {
+    todos.sort((a, b) => {
+      if (a.completed && !b.completed) return 1;
+      if (!a.completed && b.completed) return -1;
+      return 0;
+    })
+  }
+  sortToDos()
+
   return (
     <TodoContext.Provider
       value={{

@@ -12,6 +12,7 @@ import {
   useState,
 } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { v4 as uuid } from "uuid";
 
 import { useTodo } from "../context/ToDoContext";
 import SelectList from "./SelectList";
@@ -51,7 +52,7 @@ const ToDoList: FC<ToDoListProps> = ({ viewedTodos, setViewedTodos }) => {
       <Disclosure as="div" className="z-20 w-full">
         <div className="border-1 bg-taskBox flex w-full flex-col items-center rounded-xl border-solid border-white text-xs shadow-lg">
           {filteredTodos.map((todo) => (
-            <ToDoItem toDo={todo} key={todo.id} />
+            <ToDoItem toDo={todo} key={uuid()} />
           ))}
           <div className="text-primaryText border-1 bg-taskBox flex w-full items-center justify-between rounded-xl border-solid border-white px-5 py-4">
             <span className="w-1/3">
