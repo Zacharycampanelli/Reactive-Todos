@@ -1,8 +1,4 @@
-interface ToDo {
-  title: string;
-  completed: boolean;
-  id: string;
-}
+import { Todo } from "../src/types";
 
 export const initialToDos = async () => {
   try {
@@ -31,7 +27,7 @@ export const addToDoHandler = async (
   title: string,
   completed: boolean,
   userId: string,
-): Promise<ToDo | null> => {
+): Promise<Todo | null> => {
   try {
     const response = await fetch("http://localhost:3000/api/toDos", {
       method: "POST",

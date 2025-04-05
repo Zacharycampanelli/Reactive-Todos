@@ -1,5 +1,3 @@
-import express from "express";
-
 import {
   addToDo,
   deleteToDo,
@@ -7,7 +5,9 @@ import {
   getTodosByUser,
   updateToDo,
 } from "../controllers/ToDoController";
+
 import { authenticateUser } from "../middleware/authMiddleware";
+import express from "express";
 
 const router = express.Router();
 

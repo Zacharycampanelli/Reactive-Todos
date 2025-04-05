@@ -7,9 +7,9 @@ import {
 } from "@headlessui/react";
 import { Dispatch, FC, SetStateAction } from "react";
 
-import { useTheme } from "../context/ThemeContext";
 import LoginModalBody from "./LoginModalBody";
 import RegisterModalBody from "./RegisterModalBody";
+import { useTheme } from "../context/ThemeContext";
 
 interface AuthenticationModalProps {
   isAuthModalOpen: boolean;

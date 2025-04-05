@@ -5,20 +5,15 @@ import {
   useEffect,
   useState,
 } from "react";
-
 import {
   addToDoHandler,
   editToDoHandler,
   initialToDos,
   removeToDoHandler,
 } from "../../utils/toDos";
-import { useAuthContext } from "./AuthContext";
 
-export type Todo = {
-  title: string;
-  completed: boolean;
-  id: string;
-};
+import { Todo } from "../types";
+import { useAuthContext } from "./AuthContext";
 
 type TodoContextType = {
   todos: Array<Todo>;
@@ -135,9 +130,9 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       if (a.completed && !b.completed) return 1;
       if (!a.completed && b.completed) return -1;
       return 0;
-    })
-  }
-  sortToDos()
+    });
+  };
+  sortToDos();
 
   return (
     <TodoContext.Provider

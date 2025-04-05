@@ -1,11 +1,7 @@
-import { Button } from "@headlessui/react";
 import { Dispatch, FC, SetStateAction, useContext } from "react";
 
 import { AuthContext } from "../context/AuthContext";
-
-interface ModalType {
-  modalType: "signin" | "register";
-}
+import { Button } from "@headlessui/react";
 
 interface UserLinksProps {
   isAuthModalOpen: boolean;

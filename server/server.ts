@@ -1,9 +1,8 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import db from "./config/db";
 import dotenv from "dotenv";
 import express from "express";
-
-import db from "./config/db";
 import routes from "./routes";
 
 const app = express();

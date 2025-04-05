@@ -1,9 +1,8 @@
+import { User } from "../models";
 import bcrypt from "bcrypt";
+import { generateToken } from "../utils/jwtoken";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-
-import { User } from "../models";
-import { generateToken } from "../utils/jwtoken";
 
 export const register = async (req: any, res: any) => {
   try {
@@ -126,6 +125,7 @@ export const resetPassword = async (req: any, res: any) => {
 
 export const getUser = async (req: any, res: any) => {
   try {
+    console.log(req.user);
     const user = await User.findById(req.user._id)
       .select("-password")
       .populate("toDos");

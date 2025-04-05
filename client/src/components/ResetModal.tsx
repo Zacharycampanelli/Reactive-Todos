@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogPanel, Input } from "@headlessui/react";
 import { FC, useState } from "react";
-
 import { forgotPassword, handleReset } from "../../utils/reset";
+
 import { useTheme } from "../context/ThemeContext";
 
 interface ResetModalProps {

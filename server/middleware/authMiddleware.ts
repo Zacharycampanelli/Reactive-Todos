@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
 
 import { User } from "../models";
+import jwt from "jsonwebtoken";
 
 interface UserRequest extends Request {
   user?: any;
@@ -29,6 +29,7 @@ export const authenticateUser = async (
 
       if (!req.user) {
         res.status(401).json({ message: "Not authorized, user not found" });
+        return;
       }
 
       next();
@@ -38,5 +39,6 @@ export const authenticateUser = async (
     }
   } else {
     res.status(401).json({ message: "Not authorized, no token" });
+    return;
   }
 };

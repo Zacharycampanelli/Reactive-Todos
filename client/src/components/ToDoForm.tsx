@@ -1,7 +1,7 @@
 import { Checkbox, Field, Input } from "@headlessui/react";
+
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
-
 import { useTodo } from "../context/ToDoContext";
 
 const ToDoForm: FC = () => {

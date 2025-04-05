@@ -1,7 +1,3 @@
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
 import { Button, Disclosure } from "@headlessui/react";
 import {
   Dispatch,
@@ -11,13 +7,17 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useMediaQuery } from "usehooks-ts";
-import { v4 as uuid } from "uuid";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
-import { useTodo } from "../context/ToDoContext";
-import SelectList from "./SelectList";
 import { SELECT_OPTIONS } from "./ToDoContainer";
+import SelectList from "./SelectList";
 import ToDoItem from "./ToDoItem";
+import { useMediaQuery } from "usehooks-ts";
+import { useTodo } from "../context/ToDoContext";
+import { v4 as uuid } from "uuid";
 
 interface ToDoListProps {
   viewedTodos: string;

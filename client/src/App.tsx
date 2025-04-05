@@ -1,15 +1,16 @@
+import "./index.css";
+
 import { useEffect, useState } from "react";
 
+import { AuthProvider } from "./context/AuthContext";
 import AuthenticationModal from "./components/AuthenticationModal";
 import Jumbotron from "./components/Jumbotron";
 import ResetModal from "./components/ResetModal";
 import ThemeContainer from "./components/ThemeContainer";
-import ToDoContainer from "./components/ToDoContainer";
-import UserLinks from "./components/UserLinks";
-import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import ToDoContainer from "./components/ToDoContainer";
 import { TodoProvider } from "./context/ToDoContext";
-import "./index.css";
+import UserLinks from "./components/UserLinks";
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);

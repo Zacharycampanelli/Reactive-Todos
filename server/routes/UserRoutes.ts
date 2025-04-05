@@ -1,5 +1,3 @@
-import express from "express";
-
 import {
   forgottenPassword,
   getUser,
@@ -7,7 +5,9 @@ import {
   register,
   resetPassword,
 } from "../controllers/UserController";
+
 import { authenticateUser } from "../middleware/authMiddleware";
+import express from "express";
 
 const router = express.Router();
 

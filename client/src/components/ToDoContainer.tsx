@@ -1,23 +1,25 @@
 import {
   DndContext,
+  DragEndEvent,
   KeyboardSensor,
   PointerSensor,
   TouchSensor,
+  UniqueIdentifier,
   closestCorners,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { FC, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
-import moon from "../assets/images/icon-moon.svg";
-import sun from "../assets/images/icon-sun.svg";
-import { useTheme } from "../context/ThemeContext";
-import { useTodo } from "../context/ToDoContext";
 import SelectList from "./SelectList";
 import ToDoForm from "./ToDoForm";
 import ToDoList from "./ToDoList";
+import moon from "../assets/images/icon-moon.svg";
+import sun from "../assets/images/icon-sun.svg";
+import { useMediaQuery } from "usehooks-ts";
+import { useTheme } from "../context/ThemeContext";
+import { useTodo } from "../context/ToDoContext";
 
 export enum SELECT_OPTIONS {
   All = "All",
@@ -33,15 +35,17 @@ const ToDoContainer: FC = () => {
   );
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const getTodoPos = (id) => todos.findIndex((todo) => todo.id === id);
+  const getTodoPos = (id: UniqueIdentifier) =>
+    todos.findIndex((todo) => todo.id == id);
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id === over.id) return;
+    if (active?.id === over?.id) return;
 
-    setTodos((prevTodos) => {
-      const originalPos = getTodoPos(active.id);
-      const newPos = getTodoPos(over.id);
+    if (!todos) return;
+    setTodos?.((prevTodos) => {
+      const originalPos = getTodoPos(active?.id);
+      const newPos = getTodoPos(over!.id);
 
       return arrayMove(prevTodos, originalPos, newPos);
     });
