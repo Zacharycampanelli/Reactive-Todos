@@ -1,3 +1,6 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 export const handleReset = async (
   token: string,
   newPassword: string,
@@ -5,8 +8,7 @@ export const handleReset = async (
   onClose: () => void,
 ) => {
   try {
-    const response = await fetch(
-      "http://localhost:3000/api/users/reset/" + token,
+    const response = await fetch(`${API_URL}/api/users/reset/` + token,
       {
         method: "POST",
         headers: {
@@ -32,7 +34,7 @@ export const forgotPassword = async (
   setMessage: (message: string) => void,
 ) => {
   try {
-    const response = await fetch("http://localhost:3000/api/users/forgot", {
+    const response = await fetch(`${API_URL}/users/forgot`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

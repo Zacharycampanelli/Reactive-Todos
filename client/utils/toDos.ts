@@ -1,8 +1,10 @@
 import { Todo } from "../src/types";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const initialToDos = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/toDos/user", {
+    const response = await fetch(`${API_URL}/toDos/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +31,7 @@ export const addToDoHandler = async (
   userId: string,
 ): Promise<Todo | null> => {
   try {
-    const response = await fetch("http://localhost:3000/api/toDos", {
+    const response = await fetch(`${API_URL}/toDos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +64,7 @@ export const editToDoHandler = async (
   };
 
   try {
-    const response = await fetch(`http://localhost:3000/api/toDos/${toDoId}`, {
+    const response = await fetch(`${API_URL}/toDos/${toDoId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +88,7 @@ export const editToDoHandler = async (
 
 export const removeToDoHandler = async (toDoId: string) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/toDos/${toDoId}`, {
+    const response = await fetch(`${API_URL}/toDos/${toDoId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

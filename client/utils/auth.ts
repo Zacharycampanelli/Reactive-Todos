@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const handleLogin = async (
   email: string,
   password: string,
@@ -5,7 +7,7 @@ export const handleLogin = async (
   login: (user: any, token: string) => void,
 ) => {
   try {
-    const response = await fetch("http://localhost:3000/api/users/login", {
+    const response = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +38,7 @@ export const handleRegister = async (
   login: (user: any, token: string) => void,
 ) => {
   try {
-    const response = await fetch("http://localhost:3000/api/users/", {
+    const response = await fetch(`${API_URL}/users/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +67,7 @@ export const fetchUserData = async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/users/user", {
+    const response = await fetch(`${API_URL}/users/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

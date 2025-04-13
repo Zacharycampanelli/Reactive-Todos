@@ -29,3 +29,10 @@ dist-ssr
 *.xd
 .prettierignore
 .env
+.env.production
+.env.development
+.env.local
+client/.env
+client/.env.production
+client/.env.development
+client/.env.local
