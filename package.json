@@ -10,7 +10,7 @@
     "installDeps": "npm i && cd client && npm i",
     "build": "npm run build:server && npm run build:client",
     "build:server": "tsc --project tsconfig.server.json",
-    "build:client": "tsc --project tsconfig.client.json && cd client && vite build",
+    "build:client": "cd client && tsc --project tsconfig.build.json && vite build",
     "start:prod": "node dist/server.js"
   },
   "keywords": [],
