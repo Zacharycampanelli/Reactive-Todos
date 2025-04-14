@@ -4,15 +4,12 @@
   "main": "server/server.ts",
   "type": "commonjs",
   "scripts": {
-    "start": "tsx server/server.ts",
-    "client": "cd client && npm run dev",
-    "develop": "concurrently \"cd server && npm start\" \"cd client && npm run dev\"",
-    "installDeps": "npm i && cd client && npm i",
-    "build": "npm run build:server && npm run build:client",
-    "build:server": "tsc --project tsconfig.server.json",
-    "build:client": "cd client && tsc --project tsconfig.build.json && vite build",
-    "start:prod": "node dist/server.js"
-  },
+  "start": "tsx server/server.ts",
+  "start:prod": "node dist/server.js",
+  "installDeps": "npm install",
+  "build": "npm run build:server",    
+  "build:server": "tsc --project tsconfig.server.json"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
