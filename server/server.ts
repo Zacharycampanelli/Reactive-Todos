@@ -9,14 +9,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 dotenv.config();
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://reactive-todos-front.onrender.com',
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL, // Allow frontend
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-    credentials: true, // Allow cookies if needed
-  }),
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+  })
 );
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
