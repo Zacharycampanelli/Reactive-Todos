@@ -1,6 +1,7 @@
 import { Button, Checkbox, Input } from "@headlessui/react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+import { Bars3Icon } from "@heroicons/react/24/solid";
 import { CSS } from "@dnd-kit/utilities";
 import { FC } from "react";
 import { Todo } from "../types";
@@ -14,7 +15,7 @@ interface ToDoItemProps {
 const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
   const { editTodo, removeTodo } = useTodo();
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: toDo?.id ?? "default-id" });
+    useSortable({ id: toDo?.id.toString() ?? "default-id" });
 
   if (!toDo) return null;
 
@@ -24,10 +25,15 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
     <div
       ref={setNodeRef}
       {...attributes}
-      {...listeners}
       style={style}
       className="not-last:border-b-[1px] border-dividerCircle tou relative grid w-full items-center border-solid"
     >
+      <div
+        {...listeners}
+        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-grab px-3"
+      >
+        <Bars3Icon className="h-5 w-5 text-gray-500" />
+      </div>
       <Input
         className={`bg-taskBox first:border-1 text-activeTask p-5 pl-[52px] first:rounded-xl first:border-solid first:border-white ${
           toDo?.completed
