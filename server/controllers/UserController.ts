@@ -13,6 +13,7 @@ export const register = async (req: any, res: any) => {
     }
     const user = await User.create({ name, email, password });
     const token = generateToken(user._id.toString() as string);
+    console.log('✅ New user created:', user);
     res.status(201).json({ message: "Registration successful", user, token });
   } catch (error) {
     res.status(400).json({ message: error.message });

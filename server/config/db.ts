@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/todos")
+  .connect(process.env.MONGODB_URI + '/todoapp' || "mongodb://localhost:27017/todoapp")
   .then(() => {
     ("Connected to MongoDB");
   })
