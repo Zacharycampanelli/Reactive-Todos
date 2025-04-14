@@ -35,7 +35,7 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
         <Bars3Icon className="h-5 w-5 text-gray-500" />
       </div>
       <Input
-        className={`bg-taskBox first:border-1 text-activeTask p-5 pl-[52px] first:rounded-xl first:border-solid first:border-white ${
+        className={`bg-taskBox first:border-1 text-activeTask p-5 pl-[65px] first:rounded-xl first:border-solid first:border-white ${
           toDo?.completed
             ? "decoration-activeTask decoration-finishedTask text-finishedTask line-through"
             : ""
@@ -51,7 +51,7 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
       <Checkbox
         checked={toDo?.completed}
         onChange={() => editTodo(toDo?.id, undefined, toDo?.completed)}
-        className={`border-circle from-gradientStart to-gradientEnd text-finishedTask hover:border-gradientStart group absolute left-5 block size-5 rounded-[50%] border-[1px] bg-white hover:cursor-pointer data-[checked]:border-none data-[checked]:bg-gradient-to-br`}
+        className={`border-circle from-gradientStart to-gradientEnd text-finishedTask hover:border-gradientStart group absolute left-9 block size-5 rounded-[50%] border-[1px] bg-white hover:cursor-pointer data-[checked]:border-none data-[checked]:bg-gradient-to-br`}
       >
         <CheckIcon className="z-30 mx-auto my-auto h-4 w-4 stroke-white stroke-[4px] pt-1" />
       </Checkbox>
