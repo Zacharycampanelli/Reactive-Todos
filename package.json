@@ -9,7 +9,7 @@
     "develop": "concurrently \"cd server && npm start\" \"cd client && npm run dev\"",
     "installDeps": "npm i && cd client && npm i",
     "build": "npm run build:server && npm run build:client",
-    "bubild:server": "tsc --project tsconfig.server.json",
+    "build:server": "tsc --project tsconfig.server.json",
     "build:client": "tsc --project tsconfig.client.json && cd client && vite build",
     "start:prod": "node dist/server.js"
   },
