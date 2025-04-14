@@ -53,18 +53,22 @@ export const addToDoHandler = async (
 };
 
 export const editToDoHandler = async (
-  toDoId: string,
+  todoid: string,
   newText?: string,
   completed?: boolean,
 ) => {
   const updateBody = {
-    toDoId,
+    todoid,
     newText,
     completed,
   };
-
+console.log(todoid)
+if (!todoid) {
+  console.error("🚨 Missing todo ID");
+  return;
+}
   try {
-    const response = await fetch(`${API_URL}/toDos/${toDoId}`, {
+    const response = await fetch(`${API_URL}/toDos/${todoid}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -86,9 +90,9 @@ export const editToDoHandler = async (
   }
 };
 
-export const removeToDoHandler = async (toDoId: string) => {
+export const removeToDoHandler = async (todoid: string) => {
   try {
-    const response = await fetch(`${API_URL}/toDos/${toDoId}`, {
+    const response = await fetch(`${API_URL}/toDos/${todoid}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

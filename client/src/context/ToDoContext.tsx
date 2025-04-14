@@ -89,7 +89,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       if (completed !== undefined) {
         completed = !completed;
       }
-
+      console.log("🛠️ Updating ToDo:", todoid);
       const updatedTodo = await editToDoHandler(todoid, newText, completed);
 
       if (!updatedTodo) return;
