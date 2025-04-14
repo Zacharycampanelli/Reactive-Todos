@@ -7,5 +7,5 @@
     "jsx": "react-jsx",
     "types": ["vite/client"]
   },
-  "include": ["src", "src/types/fix-headlessui.d.ts"]
+  "include": ["src"]
 }
