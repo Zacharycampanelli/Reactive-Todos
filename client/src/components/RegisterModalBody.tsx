@@ -1,7 +1,7 @@
 import { Button, Field, Input, Label } from "@headlessui/react";
 import { FC, useState } from "react";
 
-import { handleRegister } from "../../utils/auth";
+import { handleRegister } from "../utils/auth";
 import { useAuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 

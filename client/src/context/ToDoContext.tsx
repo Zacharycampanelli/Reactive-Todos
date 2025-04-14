@@ -10,7 +10,7 @@ import {
   editToDoHandler,
   initialToDos,
   removeToDoHandler,
-} from "../../utils/toDos";
+} from "../utils/toDos";
 
 import { Todo } from "../types";
 import { useAuthContext } from "./AuthContext";

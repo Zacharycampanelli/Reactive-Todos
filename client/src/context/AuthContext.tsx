@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-import { fetchUserData } from "../../utils/auth";
+import { fetchUserData } from "../utils/auth";
 
 interface User {
   name: string;

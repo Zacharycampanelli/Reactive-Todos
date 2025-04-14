@@ -1,4 +1,4 @@
-import { Todo } from "../src/types";
+import { Todo } from "../../src/types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
