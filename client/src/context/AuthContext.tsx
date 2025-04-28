@@ -6,14 +6,8 @@ import {
   useState,
 } from "react";
 
+import { User } from "../types";
 import { fetchUserData } from "../utils/auth";
-
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  toDos: string[];
-}
 
 interface AuthContextType {
   user: User | null;

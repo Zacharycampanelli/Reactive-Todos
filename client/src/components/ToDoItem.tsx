@@ -37,7 +37,7 @@ const ToDoItem: FC<ToDoItemProps> = ({ toDo }) => {
       <Input
         className={`bg-taskBox first:border-1 text-activeTask p-5 pl-[65px] first:rounded-xl first:border-solid first:border-white ${
           toDo?.completed
-            ? "decoration-activeTask decoration-finishedTask text-finishedTask line-through"
+            ? "decoration-finishedTask text-finishedTask line-through"
             : ""
         } hover:cursor-pointer focus:outline-none`}
         name="todo_item"
